@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#ffffff">
-<title>2027 英國・西班牙 16日雙人同步旅遊手冊</title>
+<title>2027 英國・西班牙 16日雙人離線同步旅遊手冊</title>
 <style>
   :root {
     --bg: #f8fafc;
@@ -112,7 +112,8 @@
   }
   .sync-pill.online .sync-dot { background: #10b981; box-shadow: 0 0 6px #10b981; }
   .sync-pill.online { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
-  .sync-pill.error .sync-dot { background: #ef4444; }
+  .sync-pill.offline .sync-dot { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
+  .sync-pill.offline { background: #fffbeb; border-color: #fde68a; color: #92400e; }
 
   /* Quick Action Bar */
   .quick-bar {
@@ -376,6 +377,24 @@
     font-size: 0.95rem;
     color: var(--text);
     font-weight: 600;
+  }
+
+  /* 離線文字版轉乘錦囊 (Feature 2) */
+  .transit-cheat {
+    margin: 6px 0 4px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #14532d;
+    font-size: 0.83rem;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  .es-card .transit-cheat {
+    background: #fff7ed;
+    border-color: #fed7aa;
+    color: #7c2d12;
   }
 
   .tl-sub {
@@ -779,7 +798,7 @@
 </header>
 
 <main class="container">
-  <!-- TAB 1: 每日行程 (可即時編輯/導航/拍照) -->
+  <!-- TAB 1: 每日行程 (可即時編輯/導航/離線轉乘錦囊/拍照) -->
   <section id="tab-itinerary" class="view-section active">
     <div class="day-scroller-wrap" id="dayScrollerWrap">
       <div class="day-scroller" id="dayScroller"></div>
@@ -810,9 +829,9 @@
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
         <div>
-          <span class="badge uk">🎫 雙人共用電子票夾</span>
+          <span class="badge uk">🎫 雙人共用電子票夾（支援無網路離線檢視）</span>
           <h2 class="day-title">車票 / 博物館 QR Code 憑證庫</h2>
-          <p class="day-subtitle">上傳截圖後兩人手機都能隨時點開出示掃描</p>
+          <p class="day-subtitle">上傳截圖後自動儲存至手機本地離線庫，地鐵沒訊號也能秒開掃描</p>
         </div>
         <button class="btn-primary" onclick="openTicketModal()">＋ 上傳憑證</button>
       </div>
@@ -895,7 +914,13 @@
   <!-- TAB 4: 交通 & 博物館寶典 -->
   <section id="tab-guide" class="view-section">
     <div class="card">
-      <span class="badge uk">🚇 倫敦 & 巴塞隆納交通實戰精華</span>
+      <span class="badge uk">📵 無網路地鐵站應對 & 出發前離線設定</span>
+      <div class="callout" style="margin-top:8px;">
+        <strong>出發前手機必做 2 件事（地鐵沒訊號也能導航）：</strong><br>
+        1. 打開手機 Google Maps App → 右上角大頭貼 → <strong>離線地圖</strong> → 框選下載「大倫敦地區（含希斯洛、漢普頓宮、劍橋）」與「巴塞隆納市區」。<br>
+        2. 本網頁已內建<strong>本地離線快取</strong>與<strong>每站文字版轉乘錦囊</strong>，在倫敦地下鐵無網路時只要直接開啟（或加入主畫面開啟），所有路線、轉乘方向與票夾 QR Code 皆可秒開！
+      </div>
+
       <details class="guide-box" open>
         <summary>📱 倫敦 Apple Pay 快速交通卡 & Daily Cap 規則</summary>
         <div class="guide-content">
@@ -1042,7 +1067,7 @@
       <button class="copy-btn" onclick="closeModal('detourModal')">關閉</button>
     </div>
     <p style="font-size:0.84rem; color:var(--text-muted); margin-top:0;">
-      點擊下方快捷地標，或輸入任何臨時想去的店名，直接開啟 Google Maps App 導航：
+      點擊下方快捷地標，或輸入任何臨時想去的店名，直接開啟 Google Maps App 導航（若已下載離線地圖，無網路亦可導航）：
     </p>
     <div class="detour-grid">
       <button class="detour-card-btn" onclick="openGoogleMaps('public toilet near me')">🚻 找附近免費廁所</button>
@@ -1080,6 +1105,10 @@
     <div class="form-group">
       <label>行程內容</label>
       <input type="text" id="stepTextInput" class="form-control" placeholder="例如：波羅市場吃西班牙海鮮燉飯">
+    </div>
+    <div class="form-group">
+      <label>離線文字轉乘錦囊（選填，方便在地鐵沒訊號時查看搭車方向）</label>
+      <input type="text" id="stepTransitInput" class="form-control" placeholder="例如：🚇 地鐵 L4 轉 L2 至 Sagrada Família 站">
     </div>
     <div class="form-group">
       <label>Google Maps 導航關鍵字（選填，留空則自動抓上方內容）</label>
@@ -1165,11 +1194,11 @@
 <div id="settingsModal" class="modal-backdrop" onclick="closeModalOnBg(event, 'settingsModal')">
   <div class="modal-sheet">
     <div class="modal-header">
-      <h3>👥 雙人雲端同步設定</h3>
+      <h3>👥 雙人雲端同步 & 離線快取狀態</h3>
       <button class="copy-btn" onclick="closeModal('settingsModal')">關閉</button>
     </div>
     <div class="callout" style="margin-top:0;">
-      已內建連接你的專屬資料庫 <strong>uk-spain-2027</strong>！只要兩支手機設定相同的「旅遊房間暗號」，所有行程修改、照片、遊記、票券與記帳都會即時同步。
+      <strong>📶 雙模式自動切換：</strong>有網路時自動與資料庫 <strong>uk-spain-2027</strong> 即時同步；進入地鐵無網路區時自動啟用手機本地快取，行程、轉乘錦囊與票夾 QR Code 皆可正常查閱。
     </div>
     <div class="form-group">
       <label>你的稱呼（顯示在遊記與記帳紀錄上）</label>
@@ -1190,7 +1219,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, doc, collection, onSnapshot, setDoc, addDoc, deleteDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, collection, onSnapshot, setDoc, addDoc, deleteDoc, serverTimestamp, query, orderBy, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // 已寫入你建立的專屬 Firebase 設定
 const firebaseConfig = {
@@ -1205,17 +1234,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 預設完整 16 天行程資料庫
+// 開啟 Firebase 內建 IndexedDB 離線持久化快取
+try {
+  enableIndexedDbPersistence(db).catch(() => {});
+} catch (e) {}
+
+// 預設完整 16 天行程資料庫（包含離線文字版轉乘錦囊）
 const DEFAULT_ITINERARY = [
   {
     day: "D1", date: "4/16 (五)", region: "transit", badge: "✈️ 出發日",
     title: "桃園出發 → 轉機阿布達比 → 倫敦",
     subtitle: "準備海關文件袋 ・ 希斯洛機場感應刷卡進市區",
     events: [
-      { id: "d1-1", time: "15:30", text: "搭捷運出發 → 16:30 抵達桃園機場 T2", map: "Taoyuan International Airport Terminal 2" },
-      { id: "d1-2", time: "19:40", text: "搭乘阿提哈德航空 EY899 → 00:55 阿布達比 → 02:20 EY61 → 07:00(+1) 倫敦希斯洛 T4", map: "Heathrow Terminal 4, London", subs: [
-        "過海關隨身預備：護照、旅館預訂影本、去巴塞隆納機票影本、保險影本。",
-        "從機場 T4 搭地鐵 Piccadilly 線到 Hammersmith，直接刷感應信用卡（Apple Pay），約 35 分鐘。"
+      { id: "d1-1", time: "15:30", text: "搭捷運出發 → 16:30 抵達桃園機場 T2", transit: "🚇 桃園機場捷運 → A13 機場第二航廈站", map: "Taoyuan International Airport Terminal 2" },
+      { id: "d1-2", time: "19:40", text: "搭乘阿提哈德航空 EY899 → 00:55 阿布達比 → 02:20 EY61 → 07:00(+1) 倫敦希斯洛 T4", transit: "🚇 T4 搭地鐵 Piccadilly 線 (往 Cockfosters 方向) 直達 Hammersmith，直接刷 Apple Pay (約35分鐘)", map: "Heathrow Terminal 4, London", subs: [
+        "過海關隨身預備：護照、旅館預訂影本、去巴塞隆納機票影本、保險影本。"
       ]}
     ],
     guides: []
@@ -1225,14 +1258,14 @@ const DEFAULT_ITINERARY = [
     title: "諾丁丘彩色屋 & 波多貝羅週六市集",
     subtitle: "Hammersmith 安頓 ・ 櫻花與木蘭花盛開的粉彩街區",
     events: [
-      { id: "d2-1", time: "07:30", text: "Heathrow (T4) 搭 Piccadilly 線 (往 Cockfosters) → Hammersmith 站 → Premier Inn 寄放行李", map: "Premier Inn London Hammersmith Talgarth Road" },
+      { id: "d2-1", time: "07:30", text: "Heathrow (T4) 抵達 Hammersmith 站 → Premier Inn 寄放行李", transit: "🚇 Piccadilly 線 (往 Cockfosters) → Hammersmith 站 (電梯位於 Broadway Shopping Centre 入口)", map: "Premier Inn London Hammersmith Talgarth Road" },
       { id: "d2-2", time: "11:00", text: "飯店提早 Check-in 稍作休息", map: "Premier Inn London Hammersmith Talgarth Road" },
-      { id: "d2-3", time: "12:00", text: "搭 27 號公車 (往 Camden Town) → Notting Hill Gate Station 下車", map: "Notting Hill Gate Station, London" },
+      { id: "d2-3", time: "12:00", text: "前往諾丁丘 & 波多貝羅週六市集", transit: "🚌 搭 27 號公車 (往 Camden Town 方向) → Notting Hill Gate Station 站下車", map: "Notting Hill Gate Station, London" },
       { id: "d2-4", time: "下午", text: "諾丁丘 & 波多貝羅市集漫步 (粉彩建築、新娘百分百書店、St Lukes Mews、Acklam 小吃市集)", map: "Portobello Road Market, London", subs: [
         "Pembridge Rd → Portobello Road 粉彩建築群 → The Notting Hill Bookshop",
         "Portobello Road Market 古董市場 → St Lukes Mews → Lancaster Road 彩色屋 → Acklam Village Market"
       ]},
-      { id: "d2-5", time: "傍晚", text: "搭 Circle / H&C 線回 Hammersmith → M&S 或 Lidl 買晚餐早餐 → 預訂明晚飯店晚餐", map: "Marks & Spencer Hammersmith, London" }
+      { id: "d2-5", time: "傍晚", text: "回 Hammersmith → M&S 或 Lidl 買晚餐早餐 → 預訂明晚飯店晚餐", transit: "🚇 搭 Circle 或 Hammersmith & City 線 (往 Hammersmith 方向) 直達終點站", map: "Marks & Spencer Hammersmith, London" }
     ],
     guides: [
       { title: "🌸 諾丁丘賞花與市集小貼士", items: ["4月諾丁丘彩色屋街道種滿櫻花與大花瓣木蘭花 (Magnolias)。", "星期六是波多貝羅市集最熱鬧的日子，含古董、Vintage 時尚與 Acklam 異國小吃。"] }
@@ -1243,12 +1276,12 @@ const DEFAULT_ITINERARY = [
     title: "白金漢宮週日儀隊遊行 & 泰特現代藝術館",
     subtitle: "卡位皇家騎兵樂隊 ・ 跨河黑衣修士站 ・ 千禧橋夕陽",
     events: [
-      { id: "d3-1", time: "08:00", text: "Hammersmith 站買三明治 → 搭 District 線至 St. James's Park 下車", map: "St. James's Park Station, London" },
+      { id: "d3-1", time: "08:00", text: "Hammersmith 站買三明治出發前往白金漢宮", transit: "🚇 搭 District 線 (綠線，往 Upminster 方向) → St. James's Park 站下車", map: "St. James's Park Station, London" },
       { id: "d3-2", time: "09:20", text: "白金漢宮 & 維多利亞女王紀念碑就位 → 10:00 白金漢宮儀隊週日遊行 (45分鐘)", map: "Victoria Memorial, Buckingham Palace, London" },
       { id: "d3-3", time: "11:00", text: "聖詹姆士公園 (St. James's Park) 賞吉野櫻、鬱金香與野餐休息", map: "The Blue Bridge, St James's Park, London" },
-      { id: "d3-4", time: "13:00", text: "搭 District 線至 Blackfriars Station → 走跨河玻璃走廊往 South Bank", map: "Blackfriars Station, London" },
+      { id: "d3-4", time: "13:00", text: "前往泰特現代藝術館 (經過橫跨泰晤士河正中央的黑衣修士站)", transit: "🚇 St. James's Park 搭 District 線 (往 Upminster) → Blackfriars Station 下車 → 搭手扶梯上跨河玻璃走廊往 South Bank", map: "Blackfriars Station, London" },
       { id: "d3-5", time: "13:30", text: "Tate Modern 泰特現代藝術館 (1F 渦輪廳 → 3F 羅斯科 → 4F 畢卡索/達利 → 10F 觀景台)", map: "Tate Modern, London" },
-      { id: "d3-6", time: "17:10", text: "漫步千禧橋 (Millennium Bridge) 欣賞聖保羅大教堂天際線 → Mansion House 站回旅館", map: "Millennium Bridge, London" }
+      { id: "d3-6", time: "17:10", text: "漫步千禧橋 (Millennium Bridge) 欣賞聖保羅大教堂天際線 → 回旅館晚餐", transit: "🚇 過橋至北岸 Mansion House 站搭 District 線 (綠線，往 Richmond 方向) → Hammersmith", map: "Millennium Bridge, London" }
     ],
     guides: [
       { title: "💂 白金漢宮週日遊行 3 站超車卡位攻略", items: [
@@ -1263,13 +1296,13 @@ const DEFAULT_ITINERARY = [
     title: "格林威治本初子午線 & 泰晤士河遊船 & 西敏寺晚禱",
     subtitle: "一腳跨東西半球 ・ Uber Boat 船尾搶位 ・ 免費聽西敏寺唱詩班",
     events: [
-      { id: "d4-1", time: "08:30", text: "Hammersmith 搭 District 線至 Monument 轉 Bank 搭 DLR → Cutty Sark 下車", map: "Cutty Sark DLR Station, London" },
+      { id: "d4-1", time: "08:30", text: "飯店早餐後出發前往格林威治", transit: "🚇 Hammersmith 搭 District 線 (往 Upminster) → Monument 站步行連通道至 Bank 站 → 轉 DLR 輕軌 (往 Lewisham) → Cutty Sark 站下車", map: "Cutty Sark DLR Station, London" },
       { id: "d4-2", time: "10:30", text: "格林威治公園 (櫻花街、本初子午線跨東西半球拍照、山坡鳥瞰金融區)", map: "Prime Meridian, Greenwich, London" },
       { id: "d4-3", time: "12:00", text: "國家航海博物館 (天文學家接管特展、戶外瓶中船、大地圖)", map: "National Maritime Museum, Greenwich" },
       { id: "d4-4", time: "13:00", text: "皇后宮殿 Queen's House (鬱金香螺旋樓梯、金箔天頂) → 14:00 格林威治市集午餐", map: "Queen's House, Greenwich" },
-      { id: "d4-5", time: "15:00", text: "搭 Uber Boat 水上巴士 (搶船尾露天區！40分鐘) → Westminster Pier", map: "Greenwich Pier, London" },
+      { id: "d4-5", time: "15:00", text: "搭 Uber Boat 水上巴士返回西敏寺 (搶船尾露天區！航程約 40 分鐘)", transit: "🚤 Greenwich Pier 碼頭刷 QR Code 登船 → Westminster Pier 下船", map: "Greenwich Pier, London" },
       { id: "d4-6", time: "16:00", text: "西敏寺 Westminster Abbey (西大門排隊參加 17:00 免費晚禱)", map: "Westminster Abbey, London" },
-      { id: "d4-7", time: "18:00", text: "大笨鐘 & 西敏宮、倫敦眼、Queen's Walk 散步拍照 → 19:00 回 Hammersmith 超市採買", map: "Big Ben, London" }
+      { id: "d4-7", time: "18:00", text: "大笨鐘 & 西敏宮、倫敦眼、Queen's Walk 散步拍照 → 19:00 回 Hammersmith 超市採買", transit: "🚇 Westminster 站搭 District 線 (綠線，往 Richmond 方向) → Hammersmith", map: "Big Ben, London" }
     ],
     guides: []
   },
@@ -1278,11 +1311,11 @@ const DEFAULT_ITINERARY = [
     title: "英國國家美術館 & 波羅市場 & 聖保羅大教堂晚禱",
     subtitle: "特拉法加廣場 ・ 梵谷向日葵 ・ 倫敦塔橋 ・ 聖保羅穹頂",
     events: [
-      { id: "d5-1", time: "08:30", text: "Westminster 站下車 → 步行白廳路 → 水師提督門 → 特拉法加廣場", map: "Trafalgar Square, London" },
+      { id: "d5-1", time: "08:30", text: "Westminster 站下車 → 步行白廳路 → 水師提督門 → 特拉法加廣場", transit: "🚇 Hammersmith 搭 District 線 (往 Upminster) → Westminster 站下車往北步行", map: "Trafalgar Square, London" },
       { id: "d5-2", time: "10:00", text: "英國國家美術館 (Sainsbury Wing 入口租中文語音導覽：梵谷向日葵、達文西、凡·艾克)", map: "The National Gallery, London" },
-      { id: "d5-3", time: "13:30", text: "Charing Cross 搭火車至 London Bridge → 14:00 波羅市場 Borough Market 午餐", map: "Borough Market, London" },
+      { id: "d5-3", time: "13:30", text: "前往波羅市場 Borough Market 享用午餐", transit: "🚆 從 Charing Cross 搭 Southeastern 國鐵火車 (往 Dartford 方向，僅 2 站) → London Bridge Station 下車", map: "Borough Market, London" },
       { id: "d5-4", time: "15:00", text: "倫敦塔橋 Tower Bridge、碎片塔、倫敦塔外觀漫步", map: "Tower Bridge, London" },
-      { id: "d5-5", time: "16:40", text: "Tower Hill 搭 15 號公車 → 聖保羅大教堂 (17:00 晚禱，西門入口) → 18:00 回旅館", map: "St Paul's Cathedral, London" }
+      { id: "d5-5", time: "16:40", text: "聖保羅大教堂 (17:00 晚禱，西門入口) → 18:00 回旅館晚餐", transit: "🚌 Tower Hill Station 搭 15 號公車 (往 Charing Cross) → St Paul's Churchyard 下車；回程走 Mansion House 搭 District 線 (往 Richmond)", map: "St Paul's Cathedral, London" }
     ],
     guides: []
   },
@@ -1291,12 +1324,12 @@ const DEFAULT_ITINERARY = [
     title: "換飯店 & 南肯辛頓雙博物館 & 哈洛德 & 泰晤士河夜景",
     subtitle: "藍鯨骨架與珠寶館 ・ 埃及風哈洛德百貨 ・ 魔幻 Blue Hour 夜景",
     events: [
-      { id: "d6-1", time: "08:50", text: "Check out 搭 218 公車 → Holiday Inn Express London - Hammersmith 寄放行李", map: "Holiday Inn Express London Hammersmith, 120-124 King St, London W6 0QU" },
-      { id: "d6-2", time: "10:00", text: "自然史博物館 (Hintze Hall 藍鯨骨架、Earth Hall 紅色地心手扶梯、恐龍廳)", map: "Natural History Museum, London" },
+      { id: "d6-1", time: "08:50", text: "Check out 換旅館 → Holiday Inn Express London - Hammersmith 寄放行李", transit: "🚌 Hammersmith bus station 搭 218 號公車 → Hammersmith & Fulham Civic Campus 下車", map: "Holiday Inn Express London Hammersmith, 120-124 King St, London W6 0QU" },
+      { id: "d6-2", time: "10:00", text: "自然史博物館 (Hintze Hall 藍鯨骨架、Earth Hall 紅色地心手扶梯、恐龍廳)", transit: "🚇 Ravenscourt Park 站搭 District 線 (往 Upminster) → South Kensington Station 下車 → 走地下道 Museums Subway 直達入口", map: "Natural History Museum, London" },
       { id: "d6-3", time: "11:00", text: "維多利亞與亞伯特博物館 V&A (大衛像鑄模、拉斐爾畫稿、3F 珠寶館、Morris Room 咖啡廳)", map: "Victoria and Albert Museum, London" },
-      { id: "d6-4", time: "14:00", text: "回 Hammersmith → German Doner Kebab (GDK) 買午餐 → 15:00 Check in 休息", map: "German Doner Kebab Hammersmith, London" },
-      { id: "d6-5", time: "17:30", text: "逛哈洛德百貨公司 Harrods (埃及風中央手扶梯) → 19:30 Liverpool Street Station 探路", map: "Harrods, Knightsbridge, London" },
-      { id: "d6-6", time: "20:00", text: "Westminster 買晚餐 → 泰晤士河 Blue Hour 夜景 (大笨鐘、倫敦眼、Queen's Walk)", map: "Westminster Bridge, London" }
+      { id: "d6-4", time: "14:00", text: "回 Hammersmith → German Doner Kebab (GDK) 買午餐 → 15:00 Check in 休息", transit: "🚇 South Kensington 搭 District 或 Piccadilly 線回 Hammersmith", map: "German Doner Kebab Hammersmith, London" },
+      { id: "d6-5", time: "17:30", text: "逛哈洛德百貨公司 Harrods (埃及風中央手扶梯) → 19:30 Liverpool Street Station 探路", transit: "🚇 Hammersmith 搭 Piccadilly 線 (往 Cockfosters) → Knightsbridge 下車；接著續搭 Piccadilly 至 Holborn 轉 Central 線 (紅線，往 Hainault) 至 Liverpool Street 探路", map: "Harrods, Knightsbridge, London" },
+      { id: "d6-6", time: "20:00", text: "Westminster 買晚餐 → 泰晤士河 Blue Hour 夜景 (大笨鐘、倫敦眼、Queen's Walk)", transit: "🚇 Liverpool Street 搭 Circle Line (via Victoria) 至 Westminster；回程搭 District 線 (往 Richmond)", map: "Westminster Bridge, London" }
     ],
     guides: []
   },
@@ -1305,10 +1338,10 @@ const DEFAULT_ITINERARY = [
     title: "大英博物館深度巡禮 & 攝政街購物 & 肯辛頓花園",
     subtitle: "羅塞塔石碑與木乃伊 ・ Liberty 百年木造百貨 ・ 肯辛頓高級住宅區",
     events: [
-      { id: "d7-1", time: "09:00", text: "搭 Piccadilly 線至 Russell Square → 10:00 大英博物館 (羅塞塔石碑、木乃伊、路易斯西洋棋)", map: "The British Museum, London" },
+      { id: "d7-1", time: "09:00", text: "出發前往大英博物館 (10:00 入場：羅塞塔石碑、木乃伊、路易斯西洋棋)", transit: "🚇 搭 Piccadilly 線 (深藍線，往 Cockfosters) → Russell Square 站下車步行", map: "The British Museum, London" },
       { id: "d7-2", time: "13:00", text: "Taco Bell 買午餐至 Bloomsbury Square 野餐", map: "Bloomsbury Square Garden, London" },
-      { id: "d7-3", time: "14:00", text: "搭 55 公車 → 牛津街、攝政街 (Liberty London 木造百貨、Hamleys 玩具店)、Carnaby St", map: "Liberty London, Regent Street" },
-      { id: "d7-4", time: "17:00", text: "搭 9 號公車 → 阿爾伯特紀念亭、肯辛頓花園、肯辛頓宮 → High Street Kensington 買晚餐回飯店", map: "Kensington Palace, London" }
+      { id: "d7-3", time: "14:00", text: "牛津街、攝政街 (Liberty London 木造百貨、Hamleys 玩具店)、Carnaby St 逛街", transit: "🚌 搭 55 號公車 → Oxford Circus Stn 站下車", map: "Liberty London, Regent Street" },
+      { id: "d7-4", time: "17:00", text: "阿爾伯特紀念亭、肯辛頓花園、肯辛頓宮 → High Street Kensington 買晚餐回飯店", transit: "🚌 Piccadilly Circus 搭 9 號公車 → Royal Albert Hall 下車；19:00 High Street Kensington 搭 27 號公車回 Civic Campus", map: "Kensington Palace, London" }
     ],
     guides: []
   },
@@ -1317,12 +1350,12 @@ const DEFAULT_ITINERARY = [
     title: "劍橋大學城巡禮 & 康河撐篙 Punting & 9¾ 月台",
     subtitle: "牛頓蘋果樹 ・ 徐志摩再別康橋碑 ・ 國王十字車站哈利波特月台",
     events: [
-      { id: "d8-1", time: "08:00", text: "早餐後出發 → Liverpool Street 站搭 09:08–10:20 國鐵快車抵劍橋 (CBG)", map: "Cambridge Railway Station" },
-      { id: "d8-2", time: "10:30", text: "搭 Citi 1/3 公車 (買 Small Group DayRider £10) → 11:00 基督學院 & M&S 買午餐", map: "Christ's College, Cambridge" },
+      { id: "d8-1", time: "08:00", text: "早餐後出發 → Liverpool Street 站搭 09:08–10:20 國鐵快車抵劍橋 (CBG)", transit: "🚇 08:20 Hammersmith 搭 H&C 線 (往 Barking via Paddington) → Liverpool Street 轉刷 Trainline QR Code 搭 Greater Anglia 火車", map: "Cambridge Railway Station" },
+      { id: "d8-2", time: "10:30", text: "進劍橋市區 → 11:00 基督學院 & M&S 買午餐", transit: "🚌 Stop 8 或 9 搭 Citi 1 或 3 公車，上車跟司機買「Small Group DayRider」(£10 團體一日券) → St Andrew's Street 下車", map: "Christ's College, Cambridge" },
       { id: "d8-3", time: "12:00", text: "Rutherford's Punting 康河撐篙 (2FOR1，遊 The Backs 後園、數學橋、嘆息橋)", map: "Rutherford's Punting Cambridge" },
       { id: "d8-4", time: "13:00", text: "Wren Library 雷恩圖書館 → 14:00 三一學院找牛頓蘋果樹 → 14:30 劍橋市集 & Jack's Gelato", map: "Trinity College, Cambridge" },
       { id: "d8-5", time: "15:30", text: "國王學院 (扇形拱頂 & 再別康橋碑) → 聖體鐘 → 數學橋 → 彭布羅克學院", map: "King's College, Cambridge" },
-      { id: "d8-6", time: "17:38", text: "搭火車返抵 London King's Cross (18:34) → 19:00 朝聖 9¾ 月台 → 回 Hammersmith", map: "Platform 9 3/4, King's Cross Station, London" }
+      { id: "d8-6", time: "17:38", text: "搭火車返抵 London King's Cross (18:34) → 19:00 朝聖 9¾ 月台 → 回 Hammersmith", transit: "🚌 17:00 Emmanuel Street (Stop E2) 搭 Citi 1 回車站 → 17:38 Great Northern 火車回 King's Cross → 搭 H&C 線回 Hammersmith", map: "Platform 9 3/4, King's Cross Station, London" }
     ],
     guides: []
   },
@@ -1331,10 +1364,10 @@ const DEFAULT_ITINERARY = [
     title: "漢普頓宮 2FOR1 & 里奇蒙泰晤士河畔小鎮",
     subtitle: "亨利八世都鐸皇宮 ・ 十萬株鬱金香節 ・ 樹籬迷宮 ・ 雙層巴士景觀回程",
     events: [
-      { id: "d9-1", time: "08:30", text: "搭 District 線至 Wimbledon 買國鐵紙本票 → 搭火車至 Hampton Court (走人工通道留票根！)", map: "Hampton Court Station" },
+      { id: "d9-1", time: "08:30", text: "前往漢普頓宮 (務必買國鐵紙本票、出站走人工通道保留票根！)", transit: "🚇 Ravenscourt Park 搭 District 線 (往 Upminster) → Earl's Court 轉同線往 Wimbledon 方向 → 出閘門買 National Rail 紙本票搭 SWR 火車至終點 Hampton Court", map: "Hampton Court Station" },
       { id: "d9-2", time: "10:00", text: "漢普頓宮 Hampton Court Palace (紙本票+列印券 2FOR1、鬱金香花海、樹籬迷宮沿右手牆走)", map: "Hampton Court Palace" },
-      { id: "d9-3", time: "下午", text: "搭 R68 景觀公車 (二樓前排) → 里奇蒙 Richmond Bridge 河畔散步 & Paved Ct 義大利三明治野餐", map: "Richmond Bridge, London" },
-      { id: "d9-4", time: "傍晚", text: "搭 190 公車回 Hammersmith → 最後採買 & 打包行李 → 跟櫃台預約明早外帶早餐", map: "Livat Hammersmith, London" }
+      { id: "d9-3", time: "下午", text: "里奇蒙 Richmond Bridge 河畔散步 & Paved Ct 義大利三明治野餐", transit: "🚌 搭 R68 景觀公車 (上二樓坐最前排！往 Richmond 方向) → Cresswell Road 下車", map: "Richmond Bridge, London" },
+      { id: "d9-4", time: "傍晚", text: "回 Hammersmith → 最後採買 & 打包行李 → 跟櫃台預約明早外帶早餐", transit: "🚌 從 George Street (Stop A) 搭 190 號公車或搭 District 線回 Hammersmith", map: "Livat Hammersmith, London" }
     ],
     guides: []
   },
@@ -1343,8 +1376,8 @@ const DEFAULT_ITINERARY = [
     title: "倫敦飛往巴塞隆納 → 凱旋門 & 海洋聖母聖殿",
     subtitle: "買 T-usual 月票 ・ 100 Montaditos 週日1歐元日 ・ 哥德式聖殿",
     events: [
-      { id: "d10-1", time: "05:30", text: "起床 → 06:10 Check out 拿早餐 → 06:29 Piccadilly 線往 Heathrow T5", map: "Heathrow Terminal 5, London" },
-      { id: "d10-2", time: "10:15", text: "英國航空 BA474 (訂位 ZHZDNA) → 13:30 抵巴塞隆納 T1 → B1 買 T-usual 月票搭地鐵進市區", map: "Barcelona-El Prat Airport T1" },
+      { id: "d10-1", time: "05:30", text: "起床 → 06:10 Check out 拿打包早餐 → 前往希斯洛機場 T5", transit: "🚇 06:29 搭 Piccadilly 線 (往 Heathrow Terminal 5 方向) → 07:07 抵達 T5", map: "Heathrow Terminal 5, London" },
+      { id: "d10-2", time: "10:15", text: "英國航空 BA474 (訂位 ZHZDNA) → 13:30 抵巴塞隆納 T1 → B1 買 T-usual 月票搭地鐵進市區", transit: "🚇 T1 B1 買 T-usual (Zone 1，輸入護照號) → 搭 L9 Sud (紫粉線) → Torrassa 轉 L1 (紅線，Fondo 方向) → Urquinaona 轉 L4 (橘線，La Pau 方向) → Llacuna 站下車", map: "Barcelona-El Prat Airport T1" },
       { id: "d10-3", time: "15:30", text: "ibis budget Barcelona Center Check in → 100 Montaditos 週日 1 歐元促銷晚餐", map: "ibis budget Barcelona Center, Carrer d'Àvila, 66, Barcelona" },
       { id: "d10-4", time: "17:15", text: "巴塞隆納凱旋門 & 城堡公園 (黃金戰車噴泉) → 18:00 海洋聖母聖殿 → Condis 超市", map: "Arc de Triomf, Barcelona" }
     ],
@@ -1355,7 +1388,7 @@ const DEFAULT_ITINERARY = [
     title: "哥德區歷史巡禮 & 聖卡特琳娜市場 & 加泰羅尼亞音樂宮",
     subtitle: "13隻白鵝主教座堂 ・ 畢卡索壁畫 ・ 吻牆與天使大街血拼",
     events: [
-      { id: "d11-1", time: "08:30", text: "搭 L4 線 → 09:00 國王廣場 → 奧古斯都神殿 → 主教橋 → Pati dels Tarongers", map: "Plaça del Rei, Barcelona" },
+      { id: "d11-1", time: "08:30", text: "前往哥德區 → 09:00 國王廣場 → 奧古斯都神殿 → 主教橋 → Pati dels Tarongers", transit: "🚇 搭地鐵 L4 線 (橘線) 前往 Jaume I 站下車步行", map: "Plaça del Rei, Barcelona" },
       { id: "d11-2", time: "10:00", text: "巴塞隆納主教座堂入內參觀 (鵝井迴廊 13 隻白鵝、詩班席、地下墓室)", map: "Cathedral of Barcelona" },
       { id: "d11-3", time: "12:00", text: "Casa de l'Ardiaca 燕子烏龜郵筒 → COAC 畢卡索壁畫 → 12:30 聖卡特琳娜市場午餐", map: "Mercat de Santa Caterina, Barcelona" },
       { id: "d11-4", time: "14:00", text: "加泰羅尼亞音樂宮外觀 → 15:00 吻牆 → 天使大街血拼 (喊 Tax Free!) → 英國宮百貨 9F 景觀 → Mercadona 超市", map: "Palau de la Música Catalana, Barcelona" }
@@ -1367,10 +1400,10 @@ const DEFAULT_ITINERARY = [
     title: "聖家堂入內+登塔 & 聖保羅醫院 & 蒙特惠奇山夕陽",
     subtitle: "高第廣場水池倒影 ・ 世界最美現代主義醫院 ・ 飛碟天台俯瞰西班牙廣場",
     events: [
-      { id: "d12-1", time: "08:30", text: "先至東面高第廣場水池拍聖家堂倒影 → 09:00 聖家堂入內參觀 + 09:30 登誕生立面塔樓", map: "Basílica de la Sagrada Família, Barcelona" },
+      { id: "d12-1", time: "08:30", text: "先至東面高第廣場水池拍聖家堂倒影 → 09:00 聖家堂入內參觀 + 09:30 登誕生立面塔樓", transit: "🚇 搭地鐵 L4 轉 L2 (紫線) → Sagrada Família 站下車", map: "Basílica de la Sagrada Família, Barcelona" },
       { id: "d12-2", time: "13:00", text: "La Granota & Co 午餐 (€14.9) → 散步高第大道 → 15:00 聖十字聖保羅醫院外觀", map: "Recinte Modernista de Sant Pau, Barcelona" },
-      { id: "d12-3", time: "16:30", text: "搭纜車與 150 公車上蒙特惠奇山觀景台 & 山頂城堡外觀 → 加泰隆尼亞國家藝術博物館平台", map: "Castell de Montjuïc, Barcelona" },
-      { id: "d12-4", time: "傍晚", text: "搭露天手扶梯下山 → 威尼斯雙塔 → 西班牙廣場 → 阿勒那競技場頂樓「飛碟天台」看夕陽 → Mercadona", map: "Arenas de Barcelona" }
+      { id: "d12-3", time: "16:30", text: "蒙特惠奇山觀景台 & 山頂城堡外觀 → 加泰隆尼亞國家藝術博物館平台", transit: "🚇 L5 轉 L3 至 Paral·lel 站 → 轉 FM 登山纜車 → 轉 150 號公車至 Castell 城堡站下車", map: "Castell de Montjuïc, Barcelona" },
+      { id: "d12-4", time: "傍晚", text: "搭露天手扶梯下山 → 威尼斯雙塔 → 西班牙廣場 → 阿勒那競技場頂樓「飛碟天台」看夕陽 → Mercadona", transit: "🚌 搭 150 號公車下山至國家藝術博物館，再搭露天電動手扶梯直達西班牙廣場", map: "Arenas de Barcelona" }
     ],
     guides: []
   },
@@ -1379,10 +1412,10 @@ const DEFAULT_ITINERARY = [
     title: "格拉西亞大道高第建築群 & 蘭布拉大道 & 聖家堂夜景",
     subtitle: "米拉之家與巴特由之家 ・ 皇家廣場高第路燈 ・ 21:00 璀璨聖家堂夜景",
     events: [
-      { id: "d13-1", time: "09:00", text: "參觀米拉之家 (Casa Milà 波浪採石場 & 武士煙囪天台) → 11:00 巴特由之家 & 阿馬特耶之家外觀", map: "Casa Milà, Barcelona" },
+      { id: "d13-1", time: "09:00", text: "參觀米拉之家 (Casa Milà 波浪採石場 & 武士煙囪天台) → 11:00 巴特由之家 & 阿馬特耶之家外觀", transit: "🚇 搭地鐵至 Diagonal 或 Passeig de Gràcia 站下車", map: "Casa Milà, Barcelona" },
       { id: "d13-2", time: "11:45", text: "格拉西亞大道逛街 (Loewe、Massimo Dutti、ZARA) → 13:00 100 Montaditos 週三 1 歐元午餐", map: "Casa Batlló, Barcelona" },
       { id: "d13-3", time: "14:00", text: "蘭布拉大道 (防扒手！波蓋利亞市場、米羅馬賽克) → 皇家廣場高第路燈 → 奎爾宮 → 哥倫布紀念碑木棧道", map: "Plaça Reial, Barcelona" },
-      { id: "d13-4", time: "21:00", text: "回飯店休息晚餐後 → 21:00 前往聖家堂廣場拍攝璀璨「聖家堂夜景」", map: "Plaça de la Sagrada Família, Barcelona" }
+      { id: "d13-4", time: "21:00", text: "回飯店休息晚餐後 → 21:00 前往聖家堂廣場拍攝璀璨「聖家堂夜景」", transit: "🚇 搭 L4 轉 L2 至 Sagrada Família 站 (黃金燈光時段 20:45–21:30)", map: "Plaça de la Sagrada Família, Barcelona" }
     ],
     guides: []
   },
@@ -1391,7 +1424,7 @@ const DEFAULT_ITINERARY = [
     title: "奎爾公園童話世界 & 維森斯之家 & 海灘/自由行",
     subtitle: "馬賽克大蜥蜴與糖果屋 ・ 高第處女作 ・ 最後採買與打包",
     events: [
-      { id: "d14-1", time: "08:30", text: "搭 L4 至 Alfons X 轉 V19 公車 → 09:30 奎爾公園入內參觀 (東側進、大門出全下坡，大蜥蜴與薑餅屋)", map: "Park Güell, Barcelona" },
+      { id: "d14-1", time: "08:30", text: "前往奎爾公園 (東側進、大門出全下坡，大蜥蜴與薑餅屋)", transit: "🚇 搭 L4 至 Alfons X 站 → 出站到馬路中央公車專用島轉 V19 公車 (往 Pl. Alfonso Comín) → Albert Llanas - Muga 下車步行2分鐘", map: "Park Güell, Barcelona" },
       { id: "d14-2", time: "12:30", text: "維森斯之家外觀拍照 (高第處女作) → 13:00 Elisabets Restaurant 商業午餐 (€14.5)", map: "Casa Vicens Gaudí, Barcelona" },
       { id: "d14-3", time: "下午", text: "MANGO Outlet 尋寶 → Barceloneta Beach 海灘散步 → Lidl / Mercadona 採買 & 回飯店整理退稅單打包", map: "Barceloneta Beach, Barcelona" }
     ],
@@ -1402,7 +1435,7 @@ const DEFAULT_ITINERARY = [
     title: "巴塞隆納機場退稅 → 阿布達比轉機",
     subtitle: "提前抵達 T1 刷 DIVA 退稅機台 ・ 滿載回憶啟程回家",
     events: [
-      { id: "d15-1", time: "05:30", text: "起床 → 06:20 Check out → 搭 L4 轉 L1 轉 L9 Sud 直達 Aeroport T1", map: "Barcelona-El Prat Airport T1" },
+      { id: "d15-1", time: "05:30", text: "起床 → 06:20 Check out 前往巴塞隆納機場 T1", transit: "🚇 Bogatell / Llacuna 站搭 L4 (Trinitat Nova 方向) → Urquinaona 轉 L1 (Hospital de Bellvitge 方向) → Torrassa 轉 L9 Sud 直達 Aeroport T1", map: "Barcelona-El Prat Airport T1" },
       { id: "d15-2", time: "07:45", text: "BCN (T1) 辦理 DIVA 電子退稅 & Check in → 10:45 阿提哈德 EY112 → 19:20 阿布達比 → 21:20 EY898", map: "Barcelona-El Prat Airport T1" }
     ],
     guides: []
@@ -1412,7 +1445,7 @@ const DEFAULT_ITINERARY = [
     title: "抵達桃園機場 → 溫暖的家",
     subtitle: "2027 英西 16日深度之旅圓滿成功",
     events: [
-      { id: "d16-1", time: "10:00", text: "平安抵達桃園國際機場 TPE (T2) → 搭乘機場捷運返家休息", map: "Taoyuan International Airport Terminal 2" }
+      { id: "d16-1", time: "10:00", text: "平安抵達桃園國際機場 TPE (T2) → 搭乘機場捷運返家休息", transit: "🚇 桃園機場捷運 → 返家", map: "Taoyuan International Airport Terminal 2" }
     ],
     guides: []
   }
@@ -1432,18 +1465,34 @@ const CHECKLIST_ITEMS = [
   { id: "c11", date: "2月中旬", text: "奎爾公園官網 & 米拉之家官網線上購票（長者選 65+ 優惠票）" },
   { id: "c12", date: "3/1 (一)", text: "上網或官方 App 申請英國 ETA 電子旅行許可 (£16)" },
   { id: "c13", date: "4/1 (四)", text: "寫信/聯繫確認英國兩間與西班牙一間住宿飯店訂房" },
-  { id: "c14", date: "出發前", text: "iPhone 設定「快速交通卡」、列印過海關文件影本、準備行動電源與耳機" }
+  { id: "c14", date: "出發前", text: "Google Maps App 下載倫敦與巴塞隆納「離線地圖」、設定 iPhone 快速交通卡、準備行動電源" }
 ];
 
-// 全域狀態
+// 全域狀態 & 本地離線快取初始化 (Feature 1)
 let myName = localStorage.getItem("trip2027_myName") || "旅伴 A";
 let roomCode = localStorage.getItem("trip2027_roomCode") || "UKES2027";
-let itineraryData = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
-let doneMap = {};
-let checklistMap = {};
-let journalEntries = [];
-let ticketEntries = [];
-let expenseEntries = [];
+
+function loadLocalCache(key, fallback) {
+  try {
+    const raw = localStorage.getItem(`trip2027_cache_${roomCode}_${key}`);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+function saveLocalCache(key, data) {
+  try {
+    localStorage.setItem(`trip2027_cache_${roomCode}_${key}`, JSON.stringify(data));
+  } catch (e) {}
+}
+
+let itineraryData = loadLocalCache("itinerary", JSON.parse(JSON.stringify(DEFAULT_ITINERARY)));
+let doneMap = loadLocalCache("doneMap", {});
+let checklistMap = loadLocalCache("checklistMap", {});
+let journalEntries = loadLocalCache("journal", []);
+let ticketEntries = loadLocalCache("tickets", []);
+let expenseEntries = loadLocalCache("expenses", []);
 let compressedPhotoDataUrl = "";
 let compressedTicketDataUrl = "";
 let unsubMain = null, unsubJournal = null, unsubTickets = null, unsubExpenses = null;
@@ -1461,50 +1510,63 @@ function setSyncStatus(state, text) {
   label.textContent = text;
 }
 
-// 連接 Firebase 即時監聽
+// 監聽手機網路狀態（沒網路時自動切換為離線模式提示）
+window.addEventListener("online", () => setSyncStatus("online", "雙人已同步"));
+window.addEventListener("offline", () => setSyncStatus("offline", "離線快取中"));
+
+// 連接 Firebase 即時監聽 + 自動寫入本地離線快取
 function connectRealtimeSync() {
   if (unsubMain) unsubMain();
   if (unsubJournal) unsubJournal();
   if (unsubTickets) unsubTickets();
   if (unsubExpenses) unsubExpenses();
 
-  setSyncStatus("", "連線中...");
+  if (!navigator.onLine) {
+    setSyncStatus("offline", "離線快取中");
+  } else {
+    setSyncStatus("", "連線中...");
+  }
+
   const roomRef = doc(db, "rooms", roomCode);
 
   // 1. 監聽行程與打勾狀態
   unsubMain = onSnapshot(roomRef, (snap) => {
-    setSyncStatus("online", "雙人已同步");
+    setSyncStatus(navigator.onLine ? "online" : "offline", navigator.onLine ? "雙人已同步" : "離線快取中");
     if (snap.exists()) {
       const data = snap.data();
       if (data.itinerary && Array.isArray(data.itinerary)) {
         itineraryData = data.itinerary;
+        saveLocalCache("itinerary", itineraryData);
       }
       doneMap = data.doneMap || {};
       checklistMap = data.checklistMap || {};
+      saveLocalCache("doneMap", doneMap);
+      saveLocalCache("checklistMap", checklistMap);
     } else {
-      // 首次建立房間時初始化預設行程
       setDoc(roomRef, { itinerary: DEFAULT_ITINERARY, doneMap: {}, checklistMap: {} }, { merge: true }).catch(()=>{});
     }
     renderItinerary();
     renderChecklist();
     updateNextStopBanner();
   }, (err) => {
-    console.error(err);
-    setSyncStatus("error", "離線/權限異常");
+    console.warn("Firestore offline fallback:", err);
+    setSyncStatus("offline", "離線快取中");
   });
 
   // 2. 監聽遊記相簿
   const jQuery = query(collection(db, "rooms", roomCode, "journal"), orderBy("createdAt", "desc"));
   unsubJournal = onSnapshot(jQuery, (snap) => {
     journalEntries = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    saveLocalCache("journal", journalEntries);
     renderJournal();
-    renderItinerary(); // 更新行程上的縮圖
+    renderItinerary();
   });
 
-  // 3. 監聽隨身票夾
+  // 3. 監聽隨身票夾（同步存入本地快取，確保地鐵無訊號可秒開 QR Code）
   const tQuery = query(collection(db, "rooms", roomCode, "tickets"), orderBy("createdAt", "desc"));
   unsubTickets = onSnapshot(tQuery, (snap) => {
     ticketEntries = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    saveLocalCache("tickets", ticketEntries);
     renderTickets();
   });
 
@@ -1512,11 +1574,15 @@ function connectRealtimeSync() {
   const eQuery = query(collection(db, "rooms", roomCode, "expenses"), orderBy("createdAt", "desc"));
   unsubExpenses = onSnapshot(eQuery, (snap) => {
     expenseEntries = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    saveLocalCache("expenses", expenseEntries);
     renderExpenses();
   });
 }
 
 async function syncMainState() {
+  saveLocalCache("itinerary", itineraryData);
+  saveLocalCache("doneMap", doneMap);
+  saveLocalCache("checklistMap", checklistMap);
   try {
     await setDoc(doc(db, "rooms", roomCode), {
       itinerary: itineraryData,
@@ -1525,11 +1591,11 @@ async function syncMainState() {
       updatedAt: serverTimestamp()
     }, { merge: true });
   } catch (e) {
-    showToast("⚠️ 同步失敗，請確認網路或 Firestore 規則");
+    showToast("📴 目前無網路，已暫存於手機，連線後自動同步");
   }
 }
 
-// 渲染每日行程
+// 渲染每日行程（含 Feature 2：離線文字版轉乘錦囊）
 function renderItinerary() {
   const scroller = document.getElementById("dayScroller");
   const container = document.getElementById("daysContainer");
@@ -1563,6 +1629,11 @@ function renderItinerary() {
       const mapQuery = ev.map || ev.text;
       const stepPhotos = journalEntries.filter(j => j.stepId === ev.id);
 
+      let transitHtml = "";
+      if (ev.transit) {
+        transitHtml = `<div class="transit-cheat">${ev.transit}</div>`;
+      }
+
       let subsHtml = "";
       if (ev.subs && ev.subs.length) {
         subsHtml = `<ul class="tl-sub">${ev.subs.map(s => `<li>${s}</li>`).join("")}</ul>`;
@@ -1582,6 +1653,7 @@ function renderItinerary() {
             </button>
           </div>
           <div class="tl-main">${ev.text}</div>
+          ${transitHtml}
           ${subsHtml}
           ${photosHtml}
           <div class="tl-actions">
@@ -1659,6 +1731,7 @@ window.openAddStepModal = (dayIdx) => {
   document.getElementById("editStepIdx").value = -1;
   document.getElementById("stepTimeInput").value = "";
   document.getElementById("stepTextInput").value = "";
+  document.getElementById("stepTransitInput").value = "";
   document.getElementById("stepMapInput").value = "";
   document.getElementById("deleteStepBtn").style.display = "none";
   document.getElementById("stepModal").classList.add("open");
@@ -1671,6 +1744,7 @@ window.openEditStepModal = (dayIdx, stepIdx) => {
   document.getElementById("editStepIdx").value = stepIdx;
   document.getElementById("stepTimeInput").value = ev.time || "";
   document.getElementById("stepTextInput").value = ev.text || "";
+  document.getElementById("stepTransitInput").value = ev.transit || "";
   document.getElementById("stepMapInput").value = ev.map || "";
   document.getElementById("deleteStepBtn").style.display = "inline-block";
   document.getElementById("stepModal").classList.add("open");
@@ -1681,6 +1755,7 @@ window.saveStep = async () => {
   const stepIdx = parseInt(document.getElementById("editStepIdx").value, 10);
   const time = document.getElementById("stepTimeInput").value.trim() || "彈性";
   const text = document.getElementById("stepTextInput").value.trim();
+  const transit = document.getElementById("stepTransitInput").value.trim();
   const map = document.getElementById("stepMapInput").value.trim() || text;
 
   if (!text) {
@@ -1691,18 +1766,19 @@ window.saveStep = async () => {
   if (stepIdx === -1) {
     itineraryData[dayIdx].events.push({
       id: `custom-${Date.now()}`,
-      time, text, map
+      time, text, transit, map
     });
   } else {
     itineraryData[dayIdx].events[stepIdx].time = time;
     itineraryData[dayIdx].events[stepIdx].text = text;
+    itineraryData[dayIdx].events[stepIdx].transit = transit;
     itineraryData[dayIdx].events[stepIdx].map = map;
   }
 
   closeModal("stepModal");
   renderItinerary();
   updateNextStopBanner();
-  showToast("✅ 行程已更新並同步給旅伴");
+  showToast("✅ 行程已更新並同步");
   await syncMainState();
 };
 
@@ -1741,7 +1817,6 @@ window.addDetourToToday = async () => {
     showToast("請先輸入地點名稱");
     return;
   }
-  // 尋找第一個還有未完成項目的天數加入
   let targetDayIdx = 0;
   for (let i = 0; i < itineraryData.length; i++) {
     if ((itineraryData[i].events || []).some(e => !doneMap[e.id])) {
@@ -1759,12 +1834,12 @@ window.addDetourToToday = async () => {
   closeModal("detourModal");
   renderItinerary();
   updateNextStopBanner();
-  showToast(`已加入 ${itineraryData[targetDayIdx].day} 並同步！`);
+  showToast(`已加入 ${itineraryData[targetDayIdx].day}！`);
   await syncMainState();
   openGoogleMaps(val);
 };
 
-// 圖片前端自動壓縮（確保可順暢存入免費 Firestore 並秒速同步）
+// 圖片前端自動壓縮
 function compressImageFile(file, maxWidth = 1000, quality = 0.72) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -1827,7 +1902,7 @@ window.savePhotoEntry = async () => {
 
   const btn = document.getElementById("savePhotoBtn");
   btn.disabled = true;
-  btn.textContent = "同步上傳中...";
+  btn.textContent = "儲存同步中...";
 
   try {
     const now = new Date();
@@ -1843,10 +1918,10 @@ window.savePhotoEntry = async () => {
       createdAt: serverTimestamp()
     });
     closeModal("photoModal");
-    showToast("✨ 已同步至雙人自動遊記！");
+    showToast("✨ 已存入遊記（有網路時自動同步）！");
   } catch (e) {
     console.error(e);
-    showToast("⚠️ 上傳失敗，請檢查網路或資料庫規則");
+    showToast("⚠️ 儲存失敗，請檢查空間或網路");
   } finally {
     btn.disabled = false;
     btn.textContent = "✨ 發布並同步遊記";
@@ -1953,7 +2028,7 @@ window.saveTicketEntry = async () => {
       createdAt: serverTimestamp()
     });
     closeModal("ticketModal");
-    showToast("🎫 憑證已存入雙人票夾！");
+    showToast("🎫 憑證已存入雙人票夾與離線快取！");
   } finally {
     btn.disabled = false;
   }
@@ -2002,7 +2077,7 @@ window.addExpense = async () => {
   await addDoc(collection(db, "rooms", roomCode, "expenses"), {
     currency, amount, title, payer: myName, createdAt: serverTimestamp()
   });
-  showToast("💰 已記帳並同步");
+  showToast("💰 已記帳");
 };
 
 function renderExpenses() {
@@ -2164,6 +2239,8 @@ function filterCards(q) {
 // 啟動初始化
 initUserIdentity();
 renderItinerary();
+renderTickets();
+renderExpenses();
 renderChecklist();
 updateNextStopBanner();
 connectRealtimeSync();
