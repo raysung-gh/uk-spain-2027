@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#ffffff">
+<title>2027 英國・西班牙 16日雙人同步旅遊手冊</title>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-2: #f1f5f9;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --uk: #1d4ed8;
+    --uk-bg: #eff6ff;
+    --uk-border: #bfdbfe;
+    --es: #b91c1c;
+    --es-bg: #fef2f2;
+    --es-border: #fecaca;
+    --accent: #0f766e;
+    --accent-bg: #f0fdfa;
+    --warn: #b45309;
+    --warn-bg: #fffbeb;
+    --warn-border: #fde68a;
+    --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --radius: 14px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  body {
+    margin: 0;
+    padding-top: var(--safe-top);
+    padding-bottom: calc(84px + var(--safe-bottom));
+    font-size: 16px;
+  }
+
+  /* Header */
+  .app-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 14px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  }
+
+  .header-top {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .title-group h1 {
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .title-group p {
+    margin: 1px 0 0;
+    font-size: 0.76rem;
+    color: var(--text-light);
+  }
+
+  .sync-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .sync-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #94a3b8;
+  }
+  .sync-pill.online .sync-dot { background: #10b981; box-shadow: 0 0 6px #10b981; }
+  .sync-pill.online { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+  .sync-pill.error .sync-dot { background: #ef4444; }
+
+  /* Quick Action Bar */
+  .quick-bar {
+    max-width: 860px;
+    margin: 8px auto 0;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .next-nav-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    cursor: pointer;
+    text-align: left;
+    box-shadow: 0 2px 6px rgba(29, 78, 216, 0.22);
+    overflow: hidden;
+  }
+
+  .next-nav-btn span.dest {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .detour-btn {
+    background: var(--warn-bg);
+    color: var(--warn);
+    border: 1px solid var(--warn-border);
+    border-radius: 10px;
+    padding: 8px 11px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .search-toggle-btn {
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .search-box {
+    max-width: 860px;
+    margin: 8px auto 0;
+    position: relative;
+    display: none;
+  }
+  .search-box.open { display: block; }
+
+  .search-box input {
+    width: 100%;
+    padding: 9px 36px 9px 34px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface-2);
+    font-size: 0.92rem;
+    color: var(--text);
+    outline: none;
+  }
+  .search-box input:focus {
+    background: var(--surface);
+    border-color: var(--uk);
+  }
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+  .clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #cbd5e1;
+    color: #fff;
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  /* Main Container */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 12px 14px 24px;
+  }
+
+  .view-section { display: none; }
+  .view-section.active { display: block; animation: fadeIn 0.2s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Day Scroller */
+  .day-scroller-wrap {
+    position: sticky;
+    top: 96px;
+    z-index: 90;
+    background: rgba(248, 250, 252, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    margin: -12px -14px 12px;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-scroller {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .day-scroller::-webkit-scrollbar { display: none; }
+
+  .day-pill {
+    flex: 0 0 auto;
+    padding: 6px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+  }
+  .day-pill span.sub { font-size: 0.68rem; font-weight: 400; opacity: 0.85; }
+  .day-pill.uk.active { background: var(--uk); color: #fff; border-color: var(--uk); }
+  .day-pill.es.active { background: var(--es); color: #fff; border-color: var(--es); }
+  .day-pill.transit.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 15px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 0.74rem;
+    font-weight: 700;
+  }
+  .badge.uk { background: var(--uk-bg); color: var(--uk); border: 1px solid var(--uk-border); }
+  .badge.es { background: var(--es-bg); color: var(--es); border: 1px solid var(--es-border); }
+  .badge.transit { background: var(--accent-bg); color: var(--accent); border: 1px solid #99f6e4; }
+
+  .day-title {
+    font-size: 1.12rem;
+    font-weight: 700;
+    margin: 6px 0 2px;
+    color: var(--text);
+  }
+  .day-subtitle {
+    font-size: 0.84rem;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 18px;
+    margin: 14px 0 6px;
+    border-left: 2px solid var(--border);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .tl-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -23px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--uk);
+    border: 2px solid var(--surface);
+    box-shadow: 0 0 0 1px var(--uk);
+  }
+  .es-card .tl-item::before {
+    background: var(--es);
+    box-shadow: 0 0 0 1px var(--es);
+  }
+
+  .tl-item.done .tl-main {
+    text-decoration: line-through;
+    color: var(--text-light);
+  }
+
+  .tl-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .tl-time {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--uk);
+    background: var(--uk-bg);
+    padding: 1px 7px;
+    border-radius: 5px;
+  }
+  .es-card .tl-time { color: var(--es); background: var(--es-bg); }
+
+  .tl-main {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .tl-sub {
+    margin: 4px 0 6px;
+    padding-left: 16px;
+    font-size: 0.86rem;
+    color: var(--text-muted);
+  }
+  .tl-sub li { margin-bottom: 3px; }
+
+  /* Action Chips on Timeline */
+  .tl-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 7px;
+  }
+
+  .act-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .act-chip:active { opacity: 0.75; }
+  .act-chip.nav { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+  .act-chip.cam { background: #f0fdfa; border-color: #99f6e4; color: #0f766e; }
+  .act-chip.done-btn.checked { background: #dcfce7; border-color: #86efac; color: #166534; }
+
+  .add-step-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 9px;
+    border-radius: 10px;
+    border: 1px dashed #94a3b8;
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Photo Strip inside Timeline */
+  .step-photos {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    margin-top: 8px;
+    padding-bottom: 2px;
+  }
+  .step-photo-thumb {
+    width: 68px;
+    height: 68px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  /* Journal / Diary Cards */
+  .diary-entry {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .diary-img {
+    width: 100%;
+    max-height: 360px;
+    object-fit: cover;
+    display: block;
+    background: #e2e8f0;
+  }
+  .diary-body {
+    padding: 13px 15px;
+  }
+  .diary-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .diary-loc {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+  .diary-note {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    white-space: pre-wrap;
+    margin: 0;
+  }
+
+  /* Ticket Wallet Grid */
+  .ticket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .ticket-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--surface-2);
+    cursor: pointer;
+    position: relative;
+  }
+  .ticket-card img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    display: block;
+  }
+  .ticket-title {
+    padding: 7px 9px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Accordion */
+  details.guide-box {
+    margin-top: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  details.guide-box summary {
+    padding: 11px 13px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+  }
+  details.guide-box summary::-webkit-details-marker { display: none; }
+  details.guide-box summary::after { content: "＋"; color: var(--text-light); }
+  details.guide-box[open] summary::after { content: "－"; }
+  details.guide-box[open] summary { border-bottom: 1px solid var(--border); }
+  .guide-content { padding: 11px 13px; font-size: 0.88rem; color: var(--text-muted); }
+  .guide-content ul { margin: 4px 0 8px; padding-left: 18px; }
+  .guide-content li { margin-bottom: 4px; }
+
+  /* Callout */
+  .callout {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.86rem;
+    color: #78350f;
+    margin: 10px 0;
+  }
+
+  /* Info rows & copy */
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border);
+    gap: 8px;
+    font-size: 0.88rem;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { color: var(--text-light); font-size: 0.82rem; }
+  .info-val { font-weight: 600; text-align: right; word-break: break-word; }
+
+  .copy-btn, .btn-primary, .btn-secondary, .btn-danger {
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+  }
+  .copy-btn, .btn-secondary { background: var(--surface-2); color: var(--text); }
+  .btn-primary { background: var(--uk); color: #fff; border-color: var(--uk); }
+  .btn-danger { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+
+  /* Forms & Modals */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 500;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal-sheet {
+    background: var(--surface);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 18px 18px 0 0;
+    padding: 18px 16px calc(20px + var(--safe-bottom));
+    animation: slideUp 0.22s ease;
+  }
+  @media (min-width: 640px) {
+    .modal-backdrop { align-items: center; padding: 16px; }
+    .modal-sheet { border-radius: 16px; }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .modal-header h3 { margin: 0; font-size: 1.05rem; }
+
+  .form-group { margin-bottom: 12px; }
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--bg);
+    color: var(--text);
+  }
+  .form-control:focus {
+    outline: none;
+    border-color: var(--uk);
+    background: var(--surface);
+  }
+
+  /* Detour Quick Grid */
+  .detour-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .detour-card-btn {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    text-align: left;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text);
+  }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.84rem; background: var(--surface); }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 700; white-space: nowrap; }
+
+  /* Checklist */
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+  .check-item.done .check-text { text-decoration: line-through; color: var(--text-light); }
+
+  /* Bottom Navigation */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    padding: 6px 2px calc(6px + var(--safe-bottom));
+    z-index: 200;
+    box-shadow: 0 -2px 10px rgba(15, 23, 42, 0.05);
+  }
+  .nav-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 1px;
+    color: var(--text-light);
+    font-size: 0.68rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .nav-btn .icon { font-size: 1.2rem; line-height: 1; }
+  .nav-btn.active { color: var(--uk); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 86px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1e293b;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.84rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s;
+    z-index: 600;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  a.ext-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--uk);
+    text-decoration: none;
+    font-weight: 600;
+    background: var(--uk-bg);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    margin: 3px 4px 3px 0;
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-top">
+    <div class="title-group">
+      <h1>🇬🇧🇪🇸 2027 英西 16日旅遊手冊</h1>
+      <p id="userIdentityLabel">目前身份：載入中...</p>
+    </div>
+    <button id="syncStatusBtn" class="sync-pill" onclick="openSettingsModal()">
+      <span class="sync-dot"></span>
+      <span id="syncStatusText">連線中</span>
+    </button>
+  </div>
+
+  <div class="quick-bar">
+    <button class="next-nav-btn" id="nextStopBtn" onclick="navigateNextStop()">
+      <span class="dest">🚀 下一站：載入行程中...</span>
+      <span>導航 ➔</span>
+    </button>
+    <button class="detour-btn" onclick="openDetourModal()">🧭 臨時改道</button>
+    <button class="search-toggle-btn" onclick="toggleSearchBox()" aria-label="搜尋">🔍</button>
+  </div>
+
+  <div class="search-box" id="searchBox">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="searchInput" placeholder="搜尋景點、地鐵線、訂位代號、畫作、美食..." autocomplete="off">
+    <button class="clear-btn" id="clearSearch">✕</button>
+  </div>
+</header>
+
+<main class="container">
+  <!-- TAB 1: 每日行程 (可即時編輯/導航/拍照) -->
+  <section id="tab-itinerary" class="view-section active">
+    <div class="day-scroller-wrap" id="dayScrollerWrap">
+      <div class="day-scroller" id="dayScroller"></div>
+    </div>
+    <div id="daysContainer"></div>
+  </section>
+
+  <!-- TAB 2: 自動遊記 & 雙人相簿 -->
+  <section id="tab-journal" class="view-section">
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
+        <div>
+          <span class="badge transit">📖 雙人雲端同步遊記</span>
+          <h2 class="day-title">2027 英國・西班牙 16日旅行足跡</h2>
+          <p class="day-subtitle">在任何景點按「📷 拍照打卡」，照片與心情會自動按天數排版於此</p>
+        </div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button class="btn-primary" onclick="openPhotoModal('', '', '自由隨拍')">＋ 新增隨拍紀錄</button>
+          <button class="btn-secondary" onclick="exportTravelogueHTML()">💾 匯出遊記網頁</button>
+        </div>
+      </div>
+    </div>
+    <div id="journalContainer"></div>
+  </section>
+
+  <!-- TAB 3: 隨身票夾 & 機票住宿 -->
+  <section id="tab-wallet" class="view-section">
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <div>
+          <span class="badge uk">🎫 雙人共用電子票夾</span>
+          <h2 class="day-title">車票 / 博物館 QR Code 憑證庫</h2>
+          <p class="day-subtitle">上傳截圖後兩人手機都能隨時點開出示掃描</p>
+        </div>
+        <button class="btn-primary" onclick="openTicketModal()">＋ 上傳憑證</button>
+      </div>
+      <div id="ticketGrid" class="ticket-grid"></div>
+    </div>
+
+    <div class="card">
+      <span class="badge transit">✈️ 航班資訊（點擊代號複製）</span>
+      <div style="margin-top:10px; padding:11px; background:var(--surface-2); border-radius:10px;">
+        <div style="font-weight:700; color:var(--uk); margin-bottom:4px;">去程｜4/16 (五) – 4/17 (六) 阿提哈德航空</div>
+        <div class="info-row">
+          <span class="info-label">訂位代號 (PNR)</span>
+          <span class="info-val">9P38HU <button class="copy-btn" onclick="copyText('9P38HU')">複製</button></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">EY899 / EY61</span>
+          <span class="info-val">19:40 桃園 T2 → 00:55 阿布達比 → 07:00(+1) 希斯洛 T4</span>
+        </div>
+      </div>
+
+      <div style="margin-top:10px; padding:11px; background:var(--surface-2); border-radius:10px;">
+        <div style="font-weight:700; color:var(--accent); margin-bottom:4px;">中段｜4/25 (日) 英國航空 BA474</div>
+        <div class="info-row">
+          <span class="info-label">訂位代號 (PNR)</span>
+          <span class="info-val">ZHZDNA <button class="copy-btn" onclick="copyText('ZHZDNA')">複製</button></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">航班時間</span>
+          <span class="info-val">10:15 倫敦希斯洛 T5 → 13:30 巴塞隆納 T1</span>
+        </div>
+      </div>
+
+      <div style="margin-top:10px; padding:11px; background:var(--surface-2); border-radius:10px;">
+        <div style="font-weight:700; color:var(--es); margin-bottom:4px;">回程｜4/30 (五) – 5/1 (六) 阿提哈德航空</div>
+        <div class="info-row">
+          <span class="info-label">訂位代號 (PNR)</span>
+          <span class="info-val">9P38HU <button class="copy-btn" onclick="copyText('9P38HU')">複製</button></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">EY112 / EY898</span>
+          <span class="info-val">10:45 巴塞隆納 T1 → 19:20 阿布達比 → 10:00(+1) 桃園 T2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge uk">🏨 三間飯店明細（一鍵導航/複製地址）</span>
+      <div style="margin-top:10px; padding:11px; border:1px solid var(--uk-border); background:var(--uk-bg); border-radius:10px;">
+        <div style="font-weight:700; color:var(--uk);">1. Premier Inn Hammersmith (Talgarth Road)</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:6px;">4/17–4/21 (4晚) ・ 訂位 UAA9482195 ・ 11:00 提早入住</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button class="act-chip nav" onclick="openGoogleMaps('Premier Inn London Hammersmith Talgarth Road, 181 Talgarth Rd, London W6 8DN')">📍 導航回飯店</button>
+          <button class="copy-btn" onclick="copyText('181 Talgarth Rd, London W6 8DN')">複製地址</button>
+          <button class="copy-btn" onclick="copyText('UAA9482195')">複製代號</button>
+        </div>
+      </div>
+
+      <div style="margin-top:10px; padding:11px; border:1px solid var(--uk-border); background:var(--uk-bg); border-radius:10px;">
+        <div style="font-weight:700; color:var(--uk);">2. Holiday Inn Express London - Hammersmith</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:6px;">4/21–4/25 (4晚) ・ 訂位 47311983 ・ 含早餐</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button class="act-chip nav" onclick="openGoogleMaps('Holiday Inn Express London Hammersmith, 120-124 King St, London W6 0QU')">📍 導航回飯店</button>
+          <button class="copy-btn" onclick="copyText('120-124 King St, London W6 0QU')">複製地址</button>
+          <button class="copy-btn" onclick="copyText('47311983')">複製代號</button>
+        </div>
+      </div>
+
+      <div style="margin-top:10px; padding:11px; border:1px solid var(--es-border); background:var(--es-bg); border-radius:10px;">
+        <div style="font-weight:700; color:var(--es);">3. ibis budget Barcelona Center</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:6px;">4/25–4/30 (5晚) ・ 訂位 QNBPDKCX ・ 現場付 77 歐稅金</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button class="act-chip nav" onclick="openGoogleMaps('ibis budget Barcelona Center, Carrer d\'Àvila, 66, 08005 Barcelona')">📍 導航回飯店</button>
+          <button class="copy-btn" onclick="copyText('Carrer d\'Àvila, 66, 08005 Barcelona')">複製地址</button>
+          <button class="copy-btn" onclick="copyText('QNBPDKCX')">複製代號</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 4: 交通 & 博物館寶典 -->
+  <section id="tab-guide" class="view-section">
+    <div class="card">
+      <span class="badge uk">🚇 倫敦 & 巴塞隆納交通實戰精華</span>
+      <details class="guide-box" open>
+        <summary>📱 倫敦 Apple Pay 快速交通卡 & Daily Cap 規則</summary>
+        <div class="guide-content">
+          <ul>
+            <li><strong>設定方式：</strong>iPhone 錢包 → 信用卡 → 右上角「...」→ 開啟「快速交通卡設定」並驗證 Face ID。進出閘門免解鎖直接貼黃色感應圈。</li>
+            <li><strong>Daily Cap 每日上限：</strong>Zone 1-2 每日上限約 <strong>£8.50</strong>，搭 3 趟地鐵即回本，第 4 趟起免費（水上巴士不計入 Cap）。</li>
+            <li><strong>三大鐵律：</strong>① 必須同卡/同手機進與出 ② 兩人同行不可共用一支手機 ③ 巴士僅上車刷卡 (£1.75，1小時內轉乘免費)，下車免刷。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="guide-box">
+        <summary>🎟️ 英國國鐵 & 2 FOR 1 買一送一關鍵提醒</summary>
+        <div class="guide-content">
+          <ul>
+            <li><strong>4/23 (五) 劍橋一日遊：</strong>Trainline App 買直達早鳥票 (0 changes)。Days Out Guide 領取 <em>Rutherford's Punting</em> 電子憑證，14:50 前抵達橘色服務台出示 eVoucher 與當日車票。</li>
+            <li><strong>4/24 (六) 漢普頓宮（務必印紙本！）：</strong>出發前上 Days Out Guide 填 Wimbledon → Hampton Court (24/04/2027, 2人) 並<strong>用 A4 紙列印</strong>！當天在 Wimbledon 站售票機買國鐵紙本票，抵達 Hampton Court <strong>走人工通道保留票根</strong>。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="guide-box">
+        <summary>🇪🇸 巴塞隆納 T-usual 月票 & 西班牙無門檻退稅</summary>
+        <div class="guide-content">
+          <ul>
+            <li><strong>T-usual 月票：</strong>機場 T1 B1 地鐵售票機切英文 → Buy T-mobilitat card → T-usual → Zone 1 → <strong>輸入各自護照號碼</strong>（每人一張，建議付現金）。</li>
+            <li><strong>西班牙無門檻退稅：</strong>不限金額每件都能退！結帳出示護照照片喊 <em>"Tax Free, please!"</em>，回程在 BCN T1 刷 DIVA 機台。</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="card">
+      <span class="badge uk">🏛️ 大英博物館 & 國家美術館必看清單</span>
+      <details class="guide-box" open>
+        <summary>🏺 大英博物館 6 大鎮店之寶 & 樓層動線</summary>
+        <div class="guide-content">
+          <div class="table-wrap">
+            <table>
+              <tr><th>展間</th><th>鎮館之寶</th><th>必看細節</th></tr>
+              <tr><td><strong>Room 4 (1F)</strong></td><td>羅塞塔石碑、拉美西斯二世</td><td>Top 1 破譯古埃及文關鍵石碑；拉美西斯右胸有拿破崙軍隊穿孔。</td></tr>
+              <tr><td><strong>Room 6/10 (1F)</strong></td><td>拉瑪蘇人面飛獅、獵獅浮雕</td><td>人面飛獅側面看共有 <strong>5 隻腳</strong>。</td></tr>
+              <tr><td><strong>Room 18/22 (1F)</strong></td><td>帕德嫩神廟雕刻、摩索拉斯陵墓</td><td>Top 2 雅典衛城「濕衣法」飄逸褶皺雕刻。</td></tr>
+              <tr><td><strong>Room 24 (1F)</strong></td><td>摩艾石像</td><td>Top 4 復活節島石像，背面刻有鳥嘴與特殊文字。</td></tr>
+              <tr><td><strong>Room 52/56 (2F)</strong></td><td>居魯士圓柱、烏爾旗幟</td><td>第一份人權宣言；青金石拼貼戰爭與和平兩面。</td></tr>
+              <tr><td><strong>Room 61–64 (2F)</strong></td><td>彩繪木乃伊 & 死者之書</td><td>Top 5 & 6 歌女凱特貝特木乃伊與沙伯替僕人偶；阿努比斯審判。</td></tr>
+              <tr><td><strong>Room 40–41 (2F)</strong></td><td>路易斯西洋棋、薩頓胡頭盔</td><td>Top 3 海象牙雕刻，觀察王后憂愁表情。</td></tr>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <details class="guide-box">
+        <summary>🎨 英國國家美術館 4 大展區名畫</summary>
+        <div class="guide-content">
+          <ul>
+            <li><strong>Zone 1 印象派 (Rooms 43–46)：</strong>開館先衝！梵谷《向日葵》、莫內《日本橋與睡蓮池》、秀拉《阿尼埃爾的浴者》。</li>
+            <li><strong>Zone 2 巴洛克與英國 (Rooms 22–40)：</strong>特納《戰艦無畏號》、卡拉瓦喬《以馬忤斯的晚餐》、林布蘭《34歲與63歲自畫像》、維梅爾《小鍵琴前的女子》。</li>
+            <li><strong>Zone 3 義大利文藝復興 (Rooms 2–12)：</strong>達文西《岩間聖母》、拉斐爾《粉紅色的聖母》、提香《巴克斯與阿里阿德涅》、波提切利《維納斯與戰神》。</li>
+            <li><strong>Zone 4 北方文藝復興 (Rooms 14, 28, 63)：</strong>凡·艾克《阿諾菲尼的婚禮》(看凸面鏡反射)、小漢斯·霍爾班《大使們》(右側斜看變立體骷髏頭)。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="guide-box">
+        <summary>🖼️ 泰特現代 & V&A & 自然史博物館亮點</summary>
+        <div class="guide-content">
+          <ul>
+            <li><strong>泰特現代 (Tate Modern)：</strong>1F 渦輪廳、3F 羅斯科、4F 畢卡索《哭泣的女人》與達利《龍蝦電話》、Blavatnik 10F 免費觀景台。</li>
+            <li><strong>V&A 博物館：</strong>1F Rooms 46a/b 大衛像鑄模、Room 48a 拉斐爾畫稿、Room 42 波斯地毯、3F Room 100 維多利亞女王皇冠珠寶館、1F Morris Room 咖啡廳。</li>
+            <li><strong>自然史博物館：</strong>Hintze Hall 25公尺藍鯨骨架 Hope、Earth Hall 紅色地心手扶梯、恐龍廳動態暴龍。</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <div class="card">
+      <span class="badge transit">🔗 官網預約快速連結</span>
+      <div style="margin-top:8px;">
+        <a class="ext-link" href="https://sagradafamilia.org/en/tickets" target="_blank" rel="noopener">聖家堂官網</a>
+        <a class="ext-link" href="https://parkguell.barcelona/es/compra-entradas" target="_blank" rel="noopener">奎爾公園官網</a>
+        <a class="ext-link" href="https://tickets.lapedrera.com/en" target="_blank" rel="noopener">米拉之家官網</a>
+        <a class="ext-link" href="https://www.thamesclippers.com/booking" target="_blank" rel="noopener">Uber Boat 船票</a>
+        <a class="ext-link" href="https://www.nationalgallery.org.uk/visiting/plan-your-visit" target="_blank" rel="noopener">英國國家藝廊</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 5: 雙人記帳 & 行前清單 -->
+  <section id="tab-prep" class="view-section">
+    <div class="card">
+      <span class="badge es">💰 雙人即時記帳 & 每日 €60 預算追蹤</span>
+      <p class="day-subtitle" style="margin-top:4px;">兩人隨手記一筆，雲端即時同步並自動換算台幣</p>
+      <div style="display:grid; grid-template-columns: 90px 1fr 1fr; gap:6px; margin-top:10px;">
+        <select id="expCurrency" class="form-control">
+          <option value="GBP">£ 英鎊</option>
+          <option value="EUR" selected>€ 歐元</option>
+        </select>
+        <input type="number" id="expAmount" class="form-control" placeholder="金額" step="0.01">
+        <input type="text" id="expTitle" class="form-control" placeholder="項目 (如: 波羅市場燉飯)">
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+        <span id="expSummary" style="font-size:0.84rem; font-weight:700; color:var(--accent);">累計：£0 ・ €0 (約 NT$0)</span>
+        <button class="btn-primary" onclick="addExpense()">＋ 記一筆</button>
+      </div>
+      <div id="expenseList" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card">
+      <span class="badge transit">📅 行前預約與購票時程表（雙人同步打勾）</span>
+      <div id="checklistContainer" style="margin-top:8px;"></div>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom-nav" aria-label="主導覽列">
+  <button class="nav-btn active" data-tab="itinerary" onclick="switchTab('itinerary', this)">
+    <span class="icon">📅</span>
+    <span>每日行程</span>
+  </button>
+  <button class="nav-btn" data-tab="journal" onclick="switchTab('journal', this)">
+    <span class="icon">📖</span>
+    <span>自動遊記</span>
+  </button>
+  <button class="nav-btn" data-tab="wallet" onclick="switchTab('wallet', this)">
+    <span class="icon">🎫</span>
+    <span>票夾住宿</span>
+  </button>
+  <button class="nav-btn" data-tab="guide" onclick="switchTab('guide', this)">
+    <span class="icon">🏛️</span>
+    <span>交通寶典</span>
+  </button>
+  <button class="nav-btn" data-tab="prep" onclick="switchTab('prep', this)">
+    <span class="icon">💰</span>
+    <span>記帳清單</span>
+  </button>
+</nav>
+
+<!-- MODAL 1: 臨時改道 / Google Maps 導航 -->
+<div id="detourModal" class="modal-backdrop" onclick="closeModalOnBg(event, 'detourModal')">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3>🧭 臨時改變主意 / 即時導航</h3>
+      <button class="copy-btn" onclick="closeModal('detourModal')">關閉</button>
+    </div>
+    <p style="font-size:0.84rem; color:var(--text-muted); margin-top:0;">
+      點擊下方快捷地標，或輸入任何臨時想去的店名，直接開啟 Google Maps App 導航：
+    </p>
+    <div class="detour-grid">
+      <button class="detour-card-btn" onclick="openGoogleMaps('public toilet near me')">🚻 找附近免費廁所</button>
+      <button class="detour-card-btn" onclick="openGoogleMaps('supermarket near me')">🛒 找附近超市 (M&S/Mercadona)</button>
+      <button class="detour-card-btn" onclick="openGoogleMaps('coffee shop near me')">☕ 找附近咖啡廳休息</button>
+      <button class="detour-card-btn" onclick="openGoogleMaps('pharmacy near me')">💊 找附近藥局 (Boots)</button>
+      <button class="detour-card-btn" onclick="openGoogleMaps('Premier Inn London Hammersmith Talgarth Road')">🏨 回倫敦飯店 1 (4/17-21)</button>
+      <button class="detour-card-btn" onclick="openGoogleMaps('Holiday Inn Express London Hammersmith')">🏨 回倫敦飯店 2 (4/21-25)</button>
+      <button class="detour-card-btn" style="grid-column: span 2;" onclick="openGoogleMaps('ibis budget Barcelona Center, Carrer d\'Àvila, 66, Barcelona')">🏨 回巴塞隆納飯店 (4/25-30)</button>
+    </div>
+    <div class="form-group">
+      <label>或輸入臨時想去的新地點（中英文皆可）</label>
+      <input type="text" id="customDetourInput" class="form-control" placeholder="例如：Covent Garden 或 百年油條店">
+    </div>
+    <div style="display:flex; gap:8px; justify-content:flex-end;">
+      <button class="btn-secondary" onclick="addDetourToToday()">＋ 加入今天行程並同步</button>
+      <button class="btn-primary" onclick="goCustomDetour()">📍 立即導航</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 2: 新增 / 編輯行程節點 -->
+<div id="stepModal" class="modal-backdrop" onclick="closeModalOnBg(event, 'stepModal')">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3 id="stepModalTitle">✏️ 編輯行程節點</h3>
+      <button class="copy-btn" onclick="closeModal('stepModal')">關閉</button>
+    </div>
+    <input type="hidden" id="editDayIdx">
+    <input type="hidden" id="editStepIdx">
+    <div class="form-group">
+      <label>時間</label>
+      <input type="text" id="stepTimeInput" class="form-control" placeholder="例如：14:30">
+    </div>
+    <div class="form-group">
+      <label>行程內容</label>
+      <input type="text" id="stepTextInput" class="form-control" placeholder="例如：波羅市場吃西班牙海鮮燉飯">
+    </div>
+    <div class="form-group">
+      <label>Google Maps 導航關鍵字（選填，留空則自動抓上方內容）</label>
+      <input type="text" id="stepMapInput" class="form-control" placeholder="例如：Borough Market, London">
+    </div>
+    <div style="display:flex; justify-content:space-between; gap:8px; margin-top:14px;">
+      <button id="deleteStepBtn" class="btn-danger" onclick="deleteStep()">🗑️ 刪除此筆</button>
+      <div style="display:flex; gap:8px; margin-left:auto;">
+        <button class="btn-secondary" onclick="closeModal('stepModal')">取消</button>
+        <button class="btn-primary" onclick="saveStep()">💾 儲存並同步</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 3: 拍照打卡 & 遊記紀錄 -->
+<div id="photoModal" class="modal-backdrop" onclick="closeModalOnBg(event, 'photoModal')">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3>📷 景點拍照打卡（自動生成遊記）</h3>
+      <button class="copy-btn" onclick="closeModal('photoModal')">關閉</button>
+    </div>
+    <input type="hidden" id="photoDayLabel">
+    <input type="hidden" id="photoStepId">
+    <div class="form-group">
+      <label>地點 / 景點名稱</label>
+      <input type="text" id="photoLocInput" class="form-control" placeholder="例如：D3｜白金漢宮週日儀隊遊行">
+    </div>
+    <div class="form-group">
+      <label>選擇或拍攝照片（系統會自動壓縮以秒速同步給旅伴）</label>
+      <input type="file" id="photoFileInput" accept="image/*" class="form-control" onchange="previewCompressedPhoto(this)">
+      <img id="photoPreview" style="display:none; width:100%; max-height:220px; object-fit:cover; border-radius:10px; margin-top:8px;">
+    </div>
+    <div class="form-group">
+      <label>當下心情 / 美食筆記 / 給未來的遊記短評</label>
+      <textarea id="photoNoteInput" class="form-control" rows="3" placeholder="寫下這一刻的感受、天氣或小故事..."></textarea>
+    </div>
+    <div style="display:flex; justify-content:flex-end; gap:8px;">
+      <button class="btn-secondary" onclick="closeModal('photoModal')">取消</button>
+      <button class="btn-primary" id="savePhotoBtn" onclick="savePhotoEntry()">✨ 發布並同步遊記</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 4: 電子票夾上傳 & 檢視 -->
+<div id="ticketModal" class="modal-backdrop" onclick="closeModalOnBg(event, 'ticketModal')">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3>🎫 上傳車票 / 預約 QR Code</h3>
+      <button class="copy-btn" onclick="closeModal('ticketModal')">關閉</button>
+    </div>
+    <div class="form-group">
+      <label>票券名稱（包含日期方便查找）</label>
+      <input type="text" id="ticketTitleInput" class="form-control" placeholder="例如：4/27 10:00 聖家堂門票 QR Code">
+    </div>
+    <div class="form-group">
+      <label>選擇截圖或照片</label>
+      <input type="file" id="ticketFileInput" accept="image/*" class="form-control" onchange="previewTicketPhoto(this)">
+      <img id="ticketPreview" style="display:none; width:100%; max-height:240px; object-fit:contain; border-radius:10px; margin-top:8px; background:#f1f5f9;">
+    </div>
+    <div style="display:flex; justify-content:flex-end; gap:8px;">
+      <button class="btn-secondary" onclick="closeModal('ticketModal')">取消</button>
+      <button class="btn-primary" id="saveTicketBtn" onclick="saveTicketEntry()">💾 存入雙人票夾</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 5: 全螢幕檢視票券 -->
+<div id="ticketViewerModal" class="modal-backdrop" onclick="closeModal('ticketViewerModal')">
+  <div class="modal-sheet" style="text-align:center;" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3 id="viewerTitle">票券檢視</h3>
+      <button class="copy-btn" onclick="closeModal('ticketViewerModal')">關閉</button>
+    </div>
+    <img id="viewerImg" style="width:100%; max-height:65vh; object-fit:contain; border-radius:10px; background:#fff;">
+    <div style="margin-top:12px;">
+      <button class="btn-danger" id="viewerDeleteBtn">🗑️ 刪除此憑證</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 6: 旅伴身份與房間設定 -->
+<div id="settingsModal" class="modal-backdrop" onclick="closeModalOnBg(event, 'settingsModal')">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3>👥 雙人雲端同步設定</h3>
+      <button class="copy-btn" onclick="closeModal('settingsModal')">關閉</button>
+    </div>
+    <div class="callout" style="margin-top:0;">
+      已內建連接你的專屬資料庫 <strong>uk-spain-2027</strong>！只要兩支手機設定相同的「旅遊房間暗號」，所有行程修改、照片、遊記、票券與記帳都會即時同步。
+    </div>
+    <div class="form-group">
+      <label>你的稱呼（顯示在遊記與記帳紀錄上）</label>
+      <input type="text" id="myNameInput" class="form-control" placeholder="例如：我 / 老公 / 老婆">
+    </div>
+    <div class="form-group">
+      <label>雙人旅遊房間暗號（兩支手機必須填完全一樣）</label>
+      <input type="text" id="roomCodeInput" class="form-control" placeholder="例如：UKES2027">
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:8px;">
+      <button class="btn-danger" onclick="resetItineraryToDefault()">🔄 重置為原始預設行程</button>
+      <button class="btn-primary" onclick="saveUserSettings()">✅ 儲存並連線</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast">提示訊息</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, collection, onSnapshot, setDoc, addDoc, deleteDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// 已寫入你建立的專屬 Firebase 設定
+const firebaseConfig = {
+  apiKey: "AIzaSyBo14zAXW4sPkgIUvyeMnpXhHUiw3hdHuw",
+  authDomain: "uk-spain-2027.firebaseapp.com",
+  projectId: "uk-spain-2027",
+  storageBucket: "uk-spain-2027.firebasestorage.app",
+  messagingSenderId: "516077448937",
+  appId: "1:516077448937:web:5c092b6338ad4b4f468a78"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// 預設完整 16 天行程資料庫
+const DEFAULT_ITINERARY = [
+  {
+    day: "D1", date: "4/16 (五)", region: "transit", badge: "✈️ 出發日",
+    title: "桃園出發 → 轉機阿布達比 → 倫敦",
+    subtitle: "準備海關文件袋 ・ 希斯洛機場感應刷卡進市區",
+    events: [
+      { id: "d1-1", time: "15:30", text: "搭捷運出發 → 16:30 抵達桃園機場 T2", map: "Taoyuan International Airport Terminal 2" },
+      { id: "d1-2", time: "19:40", text: "搭乘阿提哈德航空 EY899 → 00:55 阿布達比 → 02:20 EY61 → 07:00(+1) 倫敦希斯洛 T4", map: "Heathrow Terminal 4, London", subs: [
+        "過海關隨身預備：護照、旅館預訂影本、去巴塞隆納機票影本、保險影本。",
+        "從機場 T4 搭地鐵 Piccadilly 線到 Hammersmith，直接刷感應信用卡（Apple Pay），約 35 分鐘。"
+      ]}
+    ],
+    guides: []
+  },
+  {
+    day: "D2", date: "4/17 (六)", region: "uk", badge: "🇬🇧 倫敦 Day 1",
+    title: "諾丁丘彩色屋 & 波多貝羅週六市集",
+    subtitle: "Hammersmith 安頓 ・ 櫻花與木蘭花盛開的粉彩街區",
+    events: [
+      { id: "d2-1", time: "07:30", text: "Heathrow (T4) 搭 Piccadilly 線 (往 Cockfosters) → Hammersmith 站 → Premier Inn 寄放行李", map: "Premier Inn London Hammersmith Talgarth Road" },
+      { id: "d2-2", time: "11:00", text: "飯店提早 Check-in 稍作休息", map: "Premier Inn London Hammersmith Talgarth Road" },
+      { id: "d2-3", time: "12:00", text: "搭 27 號公車 (往 Camden Town) → Notting Hill Gate Station 下車", map: "Notting Hill Gate Station, London" },
+      { id: "d2-4", time: "下午", text: "諾丁丘 & 波多貝羅市集漫步 (粉彩建築、新娘百分百書店、St Lukes Mews、Acklam 小吃市集)", map: "Portobello Road Market, London", subs: [
+        "Pembridge Rd → Portobello Road 粉彩建築群 → The Notting Hill Bookshop",
+        "Portobello Road Market 古董市場 → St Lukes Mews → Lancaster Road 彩色屋 → Acklam Village Market"
+      ]},
+      { id: "d2-5", time: "傍晚", text: "搭 Circle / H&C 線回 Hammersmith → M&S 或 Lidl 買晚餐早餐 → 預訂明晚飯店晚餐", map: "Marks & Spencer Hammersmith, London" }
+    ],
+    guides: [
+      { title: "🌸 諾丁丘賞花與市集小貼士", items: ["4月諾丁丘彩色屋街道種滿櫻花與大花瓣木蘭花 (Magnolias)。", "星期六是波多貝羅市集最熱鬧的日子，含古董、Vintage 時尚與 Acklam 異國小吃。"] }
+    ]
+  },
+  {
+    day: "D3", date: "4/18 (日)", region: "uk", badge: "🇬🇧 倫敦 Day 2",
+    title: "白金漢宮週日儀隊遊行 & 泰特現代藝術館",
+    subtitle: "卡位皇家騎兵樂隊 ・ 跨河黑衣修士站 ・ 千禧橋夕陽",
+    events: [
+      { id: "d3-1", time: "08:00", text: "Hammersmith 站買三明治 → 搭 District 線至 St. James's Park 下車", map: "St. James's Park Station, London" },
+      { id: "d3-2", time: "09:20", text: "白金漢宮 & 維多利亞女王紀念碑就位 → 10:00 白金漢宮儀隊週日遊行 (45分鐘)", map: "Victoria Memorial, Buckingham Palace, London" },
+      { id: "d3-3", time: "11:00", text: "聖詹姆士公園 (St. James's Park) 賞吉野櫻、鬱金香與野餐休息", map: "The Blue Bridge, St James's Park, London" },
+      { id: "d3-4", time: "13:00", text: "搭 District 線至 Blackfriars Station → 走跨河玻璃走廊往 South Bank", map: "Blackfriars Station, London" },
+      { id: "d3-5", time: "13:30", text: "Tate Modern 泰特現代藝術館 (1F 渦輪廳 → 3F 羅斯科 → 4F 畢卡索/達利 → 10F 觀景台)", map: "Tate Modern, London" },
+      { id: "d3-6", time: "17:10", text: "漫步千禧橋 (Millennium Bridge) 欣賞聖保羅大教堂天際線 → Mansion House 站回旅館", map: "Millennium Bridge, London" }
+    ],
+    guides: [
+      { title: "💂 白金漢宮週日遊行 3 站超車卡位攻略", items: [
+        "第1站 (09:45) 威靈頓軍營外：拍軍樂隊 09:55 踏出大門第一鏡頭。",
+        "第2站 (10:05) 維多利亞紀念碑東側階梯：斜對角回頭拍宮前軍旗巡行，10:15 穿公園小徑超車。",
+        "第3站 (10:20) 林蔭大道北側：靠近聖詹姆士宮交界正面迎接護旗隊伍！"
+      ]}
+    ]
+  },
+  {
+    day: "D4", date: "4/19 (一)", region: "uk", badge: "🇬🇧 倫敦 Day 3",
+    title: "格林威治本初子午線 & 泰晤士河遊船 & 西敏寺晚禱",
+    subtitle: "一腳跨東西半球 ・ Uber Boat 船尾搶位 ・ 免費聽西敏寺唱詩班",
+    events: [
+      { id: "d4-1", time: "08:30", text: "Hammersmith 搭 District 線至 Monument 轉 Bank 搭 DLR → Cutty Sark 下車", map: "Cutty Sark DLR Station, London" },
+      { id: "d4-2", time: "10:30", text: "格林威治公園 (櫻花街、本初子午線跨東西半球拍照、山坡鳥瞰金融區)", map: "Prime Meridian, Greenwich, London" },
+      { id: "d4-3", time: "12:00", text: "國家航海博物館 (天文學家接管特展、戶外瓶中船、大地圖)", map: "National Maritime Museum, Greenwich" },
+      { id: "d4-4", time: "13:00", text: "皇后宮殿 Queen's House (鬱金香螺旋樓梯、金箔天頂) → 14:00 格林威治市集午餐", map: "Queen's House, Greenwich" },
+      { id: "d4-5", time: "15:00", text: "搭 Uber Boat 水上巴士 (搶船尾露天區！40分鐘) → Westminster Pier", map: "Greenwich Pier, London" },
+      { id: "d4-6", time: "16:00", text: "西敏寺 Westminster Abbey (西大門排隊參加 17:00 免費晚禱)", map: "Westminster Abbey, London" },
+      { id: "d4-7", time: "18:00", text: "大笨鐘 & 西敏宮、倫敦眼、Queen's Walk 散步拍照 → 19:00 回 Hammersmith 超市採買", map: "Big Ben, London" }
+    ],
+    guides: []
+  },
+  {
+    day: "D5", date: "4/20 (二)", region: "uk", badge: "🇬🇧 倫敦 Day 4",
+    title: "英國國家美術館 & 波羅市場 & 聖保羅大教堂晚禱",
+    subtitle: "特拉法加廣場 ・ 梵谷向日葵 ・ 倫敦塔橋 ・ 聖保羅穹頂",
+    events: [
+      { id: "d5-1", time: "08:30", text: "Westminster 站下車 → 步行白廳路 → 水師提督門 → 特拉法加廣場", map: "Trafalgar Square, London" },
+      { id: "d5-2", time: "10:00", text: "英國國家美術館 (Sainsbury Wing 入口租中文語音導覽：梵谷向日葵、達文西、凡·艾克)", map: "The National Gallery, London" },
+      { id: "d5-3", time: "13:30", text: "Charing Cross 搭火車至 London Bridge → 14:00 波羅市場 Borough Market 午餐", map: "Borough Market, London" },
+      { id: "d5-4", time: "15:00", text: "倫敦塔橋 Tower Bridge、碎片塔、倫敦塔外觀漫步", map: "Tower Bridge, London" },
+      { id: "d5-5", time: "16:40", text: "Tower Hill 搭 15 號公車 → 聖保羅大教堂 (17:00 晚禱，西門入口) → 18:00 回旅館", map: "St Paul's Cathedral, London" }
+    ],
+    guides: []
+  },
+  {
+    day: "D6", date: "4/21 (三)", region: "uk", badge: "🇬🇧 倫敦 Day 5",
+    title: "換飯店 & 南肯辛頓雙博物館 & 哈洛德 & 泰晤士河夜景",
+    subtitle: "藍鯨骨架與珠寶館 ・ 埃及風哈洛德百貨 ・ 魔幻 Blue Hour 夜景",
+    events: [
+      { id: "d6-1", time: "08:50", text: "Check out 搭 218 公車 → Holiday Inn Express London - Hammersmith 寄放行李", map: "Holiday Inn Express London Hammersmith, 120-124 King St, London W6 0QU" },
+      { id: "d6-2", time: "10:00", text: "自然史博物館 (Hintze Hall 藍鯨骨架、Earth Hall 紅色地心手扶梯、恐龍廳)", map: "Natural History Museum, London" },
+      { id: "d6-3", time: "11:00", text: "維多利亞與亞伯特博物館 V&A (大衛像鑄模、拉斐爾畫稿、3F 珠寶館、Morris Room 咖啡廳)", map: "Victoria and Albert Museum, London" },
+      { id: "d6-4", time: "14:00", text: "回 Hammersmith → German Doner Kebab (GDK) 買午餐 → 15:00 Check in 休息", map: "German Doner Kebab Hammersmith, London" },
+      { id: "d6-5", time: "17:30", text: "逛哈洛德百貨公司 Harrods (埃及風中央手扶梯) → 19:30 Liverpool Street Station 探路", map: "Harrods, Knightsbridge, London" },
+      { id: "d6-6", time: "20:00", text: "Westminster 買晚餐 → 泰晤士河 Blue Hour 夜景 (大笨鐘、倫敦眼、Queen's Walk)", map: "Westminster Bridge, London" }
+    ],
+    guides: []
+  },
+  {
+    day: "D7", date: "4/22 (四)", region: "uk", badge: "🇬🇧 倫敦 Day 6",
+    title: "大英博物館深度巡禮 & 攝政街購物 & 肯辛頓花園",
+    subtitle: "羅塞塔石碑與木乃伊 ・ Liberty 百年木造百貨 ・ 肯辛頓高級住宅區",
+    events: [
+      { id: "d7-1", time: "09:00", text: "搭 Piccadilly 線至 Russell Square → 10:00 大英博物館 (羅塞塔石碑、木乃伊、路易斯西洋棋)", map: "The British Museum, London" },
+      { id: "d7-2", time: "13:00", text: "Taco Bell 買午餐至 Bloomsbury Square 野餐", map: "Bloomsbury Square Garden, London" },
+      { id: "d7-3", time: "14:00", text: "搭 55 公車 → 牛津街、攝政街 (Liberty London 木造百貨、Hamleys 玩具店)、Carnaby St", map: "Liberty London, Regent Street" },
+      { id: "d7-4", time: "17:00", text: "搭 9 號公車 → 阿爾伯特紀念亭、肯辛頓花園、肯辛頓宮 → High Street Kensington 買晚餐回飯店", map: "Kensington Palace, London" }
+    ],
+    guides: []
+  },
+  {
+    day: "D8", date: "4/23 (五)", region: "uk", badge: "🇬🇧 劍橋一日遊",
+    title: "劍橋大學城巡禮 & 康河撐篙 Punting & 9¾ 月台",
+    subtitle: "牛頓蘋果樹 ・ 徐志摩再別康橋碑 ・ 國王十字車站哈利波特月台",
+    events: [
+      { id: "d8-1", time: "08:00", text: "早餐後出發 → Liverpool Street 站搭 09:08–10:20 國鐵快車抵劍橋 (CBG)", map: "Cambridge Railway Station" },
+      { id: "d8-2", time: "10:30", text: "搭 Citi 1/3 公車 (買 Small Group DayRider £10) → 11:00 基督學院 & M&S 買午餐", map: "Christ's College, Cambridge" },
+      { id: "d8-3", time: "12:00", text: "Rutherford's Punting 康河撐篙 (2FOR1，遊 The Backs 後園、數學橋、嘆息橋)", map: "Rutherford's Punting Cambridge" },
+      { id: "d8-4", time: "13:00", text: "Wren Library 雷恩圖書館 → 14:00 三一學院找牛頓蘋果樹 → 14:30 劍橋市集 & Jack's Gelato", map: "Trinity College, Cambridge" },
+      { id: "d8-5", time: "15:30", text: "國王學院 (扇形拱頂 & 再別康橋碑) → 聖體鐘 → 數學橋 → 彭布羅克學院", map: "King's College, Cambridge" },
+      { id: "d8-6", time: "17:38", text: "搭火車返抵 London King's Cross (18:34) → 19:00 朝聖 9¾ 月台 → 回 Hammersmith", map: "Platform 9 3/4, King's Cross Station, London" }
+    ],
+    guides: []
+  },
+  {
+    day: "D9", date: "4/24 (六)", region: "uk", badge: "🇬🇧 倫敦近郊",
+    title: "漢普頓宮 2FOR1 & 里奇蒙泰晤士河畔小鎮",
+    subtitle: "亨利八世都鐸皇宮 ・ 十萬株鬱金香節 ・ 樹籬迷宮 ・ 雙層巴士景觀回程",
+    events: [
+      { id: "d9-1", time: "08:30", text: "搭 District 線至 Wimbledon 買國鐵紙本票 → 搭火車至 Hampton Court (走人工通道留票根！)", map: "Hampton Court Station" },
+      { id: "d9-2", time: "10:00", text: "漢普頓宮 Hampton Court Palace (紙本票+列印券 2FOR1、鬱金香花海、樹籬迷宮沿右手牆走)", map: "Hampton Court Palace" },
+      { id: "d9-3", time: "下午", text: "搭 R68 景觀公車 (二樓前排) → 里奇蒙 Richmond Bridge 河畔散步 & Paved Ct 義大利三明治野餐", map: "Richmond Bridge, London" },
+      { id: "d9-4", time: "傍晚", text: "搭 190 公車回 Hammersmith → 最後採買 & 打包行李 → 跟櫃台預約明早外帶早餐", map: "Livat Hammersmith, London" }
+    ],
+    guides: []
+  },
+  {
+    day: "D10", date: "4/25 (日)", region: "es", badge: "🇪🇸 飛往巴塞隆納",
+    title: "倫敦飛往巴塞隆納 → 凱旋門 & 海洋聖母聖殿",
+    subtitle: "買 T-usual 月票 ・ 100 Montaditos 週日1歐元日 ・ 哥德式聖殿",
+    events: [
+      { id: "d10-1", time: "05:30", text: "起床 → 06:10 Check out 拿早餐 → 06:29 Piccadilly 線往 Heathrow T5", map: "Heathrow Terminal 5, London" },
+      { id: "d10-2", time: "10:15", text: "英國航空 BA474 (訂位 ZHZDNA) → 13:30 抵巴塞隆納 T1 → B1 買 T-usual 月票搭地鐵進市區", map: "Barcelona-El Prat Airport T1" },
+      { id: "d10-3", time: "15:30", text: "ibis budget Barcelona Center Check in → 100 Montaditos 週日 1 歐元促銷晚餐", map: "ibis budget Barcelona Center, Carrer d'Àvila, 66, Barcelona" },
+      { id: "d10-4", time: "17:15", text: "巴塞隆納凱旋門 & 城堡公園 (黃金戰車噴泉) → 18:00 海洋聖母聖殿 → Condis 超市", map: "Arc de Triomf, Barcelona" }
+    ],
+    guides: []
+  },
+  {
+    day: "D11", date: "4/26 (一)", region: "es", badge: "🇪🇸 巴塞隆納 Day 2",
+    title: "哥德區歷史巡禮 & 聖卡特琳娜市場 & 加泰羅尼亞音樂宮",
+    subtitle: "13隻白鵝主教座堂 ・ 畢卡索壁畫 ・ 吻牆與天使大街血拼",
+    events: [
+      { id: "d11-1", time: "08:30", text: "搭 L4 線 → 09:00 國王廣場 → 奧古斯都神殿 → 主教橋 → Pati dels Tarongers", map: "Plaça del Rei, Barcelona" },
+      { id: "d11-2", time: "10:00", text: "巴塞隆納主教座堂入內參觀 (鵝井迴廊 13 隻白鵝、詩班席、地下墓室)", map: "Cathedral of Barcelona" },
+      { id: "d11-3", time: "12:00", text: "Casa de l'Ardiaca 燕子烏龜郵筒 → COAC 畢卡索壁畫 → 12:30 聖卡特琳娜市場午餐", map: "Mercat de Santa Caterina, Barcelona" },
+      { id: "d11-4", time: "14:00", text: "加泰羅尼亞音樂宮外觀 → 15:00 吻牆 → 天使大街血拼 (喊 Tax Free!) → 英國宮百貨 9F 景觀 → Mercadona 超市", map: "Palau de la Música Catalana, Barcelona" }
+    ],
+    guides: []
+  },
+  {
+    day: "D12", date: "4/27 (二)", region: "es", badge: "🇪🇸 巴塞隆納 Day 3",
+    title: "聖家堂入內+登塔 & 聖保羅醫院 & 蒙特惠奇山夕陽",
+    subtitle: "高第廣場水池倒影 ・ 世界最美現代主義醫院 ・ 飛碟天台俯瞰西班牙廣場",
+    events: [
+      { id: "d12-1", time: "08:30", text: "先至東面高第廣場水池拍聖家堂倒影 → 09:00 聖家堂入內參觀 + 09:30 登誕生立面塔樓", map: "Basílica de la Sagrada Família, Barcelona" },
+      { id: "d12-2", time: "13:00", text: "La Granota & Co 午餐 (€14.9) → 散步高第大道 → 15:00 聖十字聖保羅醫院外觀", map: "Recinte Modernista de Sant Pau, Barcelona" },
+      { id: "d12-3", time: "16:30", text: "搭纜車與 150 公車上蒙特惠奇山觀景台 & 山頂城堡外觀 → 加泰隆尼亞國家藝術博物館平台", map: "Castell de Montjuïc, Barcelona" },
+      { id: "d12-4", time: "傍晚", text: "搭露天手扶梯下山 → 威尼斯雙塔 → 西班牙廣場 → 阿勒那競技場頂樓「飛碟天台」看夕陽 → Mercadona", map: "Arenas de Barcelona" }
+    ],
+    guides: []
+  },
+  {
+    day: "D13", date: "4/28 (三)", region: "es", badge: "🇪🇸 巴塞隆納 Day 4",
+    title: "格拉西亞大道高第建築群 & 蘭布拉大道 & 聖家堂夜景",
+    subtitle: "米拉之家與巴特由之家 ・ 皇家廣場高第路燈 ・ 21:00 璀璨聖家堂夜景",
+    events: [
+      { id: "d13-1", time: "09:00", text: "參觀米拉之家 (Casa Milà 波浪採石場 & 武士煙囪天台) → 11:00 巴特由之家 & 阿馬特耶之家外觀", map: "Casa Milà, Barcelona" },
+      { id: "d13-2", time: "11:45", text: "格拉西亞大道逛街 (Loewe、Massimo Dutti、ZARA) → 13:00 100 Montaditos 週三 1 歐元午餐", map: "Casa Batlló, Barcelona" },
+      { id: "d13-3", time: "14:00", text: "蘭布拉大道 (防扒手！波蓋利亞市場、米羅馬賽克) → 皇家廣場高第路燈 → 奎爾宮 → 哥倫布紀念碑木棧道", map: "Plaça Reial, Barcelona" },
+      { id: "d13-4", time: "21:00", text: "回飯店休息晚餐後 → 21:00 前往聖家堂廣場拍攝璀璨「聖家堂夜景」", map: "Plaça de la Sagrada Família, Barcelona" }
+    ],
+    guides: []
+  },
+  {
+    day: "D14", date: "4/29 (四)", region: "es", badge: "🇪🇸 巴塞隆納 Day 5",
+    title: "奎爾公園童話世界 & 維森斯之家 & 海灘/自由行",
+    subtitle: "馬賽克大蜥蜴與糖果屋 ・ 高第處女作 ・ 最後採買與打包",
+    events: [
+      { id: "d14-1", time: "08:30", text: "搭 L4 至 Alfons X 轉 V19 公車 → 09:30 奎爾公園入內參觀 (東側進、大門出全下坡，大蜥蜴與薑餅屋)", map: "Park Güell, Barcelona" },
+      { id: "d14-2", time: "12:30", text: "維森斯之家外觀拍照 (高第處女作) → 13:00 Elisabets Restaurant 商業午餐 (€14.5)", map: "Casa Vicens Gaudí, Barcelona" },
+      { id: "d14-3", time: "下午", text: "MANGO Outlet 尋寶 → Barceloneta Beach 海灘散步 → Lidl / Mercadona 採買 & 回飯店整理退稅單打包", map: "Barceloneta Beach, Barcelona" }
+    ],
+    guides: []
+  },
+  {
+    day: "D15", date: "4/30 (五)", region: "transit", badge: "✈️ 返程日",
+    title: "巴塞隆納機場退稅 → 阿布達比轉機",
+    subtitle: "提前抵達 T1 刷 DIVA 退稅機台 ・ 滿載回憶啟程回家",
+    events: [
+      { id: "d15-1", time: "05:30", text: "起床 → 06:20 Check out → 搭 L4 轉 L1 轉 L9 Sud 直達 Aeroport T1", map: "Barcelona-El Prat Airport T1" },
+      { id: "d15-2", time: "07:45", text: "BCN (T1) 辦理 DIVA 電子退稅 & Check in → 10:45 阿提哈德 EY112 → 19:20 阿布達比 → 21:20 EY898", map: "Barcelona-El Prat Airport T1" }
+    ],
+    guides: []
+  },
+  {
+    day: "D16", date: "5/1 (六)", region: "transit", badge: "🏠 平安抵家",
+    title: "抵達桃園機場 → 溫暖的家",
+    subtitle: "2027 英西 16日深度之旅圓滿成功",
+    events: [
+      { id: "d16-1", time: "10:00", text: "平安抵達桃園國際機場 TPE (T2) → 搭乘機場捷運返家休息", map: "Taoyuan International Airport Terminal 2" }
+    ],
+    guides: []
+  }
+];
+
+const CHECKLIST_ITEMS = [
+  { id: "c1", date: "11月", text: "預約 4/21 (10:00) 自然史博物館 Natural History Museum 免費門票" },
+  { id: "c2", date: "11月", text: "預約 4/19 (14:00) 王后宮 Queen's House 免費門票" },
+  { id: "c3", date: "11月", text: "預約 4/19 (14:00) 國家航海博物館 National Maritime Museum 免費門票" },
+  { id: "c4", date: "1/4 (一)", text: "辦理/檢查護照效期（需有6個月以上效期）" },
+  { id: "c5", date: "1/4 (一)", text: "預約 4/20 (10:00) 英國國家美術館 The National Gallery 免費門票" },
+  { id: "c6", date: "1/20", text: "預約 4/22 (10:00) 大英博物館 The British Museum 免費門票" },
+  { id: "c7", date: "2/1 (一)", text: "註冊 Days Out Guide，領取劍橋撐篙 eVoucher 與「列印漢普頓宮 A4 紙本 2FOR1 券」" },
+  { id: "c8", date: "2/1 (一)", text: "Trainline App 購買 4/23 劍橋往返國鐵早鳥直達票 (Advance)" },
+  { id: "c9", date: "2/1 (一)", text: "官網預訂 4/19 格林威治 → 西敏碼頭 Uber Boat 水上巴士船票" },
+  { id: "c10", date: "2月中旬", text: "聖家堂官網搶訂 4/27 門票+導覽+登塔（參觀前60天開放第一時間下訂）" },
+  { id: "c11", date: "2月中旬", text: "奎爾公園官網 & 米拉之家官網線上購票（長者選 65+ 優惠票）" },
+  { id: "c12", date: "3/1 (一)", text: "上網或官方 App 申請英國 ETA 電子旅行許可 (£16)" },
+  { id: "c13", date: "4/1 (四)", text: "寫信/聯繫確認英國兩間與西班牙一間住宿飯店訂房" },
+  { id: "c14", date: "出發前", text: "iPhone 設定「快速交通卡」、列印過海關文件影本、準備行動電源與耳機" }
+];
+
+// 全域狀態
+let myName = localStorage.getItem("trip2027_myName") || "旅伴 A";
+let roomCode = localStorage.getItem("trip2027_roomCode") || "UKES2027";
+let itineraryData = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
+let doneMap = {};
+let checklistMap = {};
+let journalEntries = [];
+let ticketEntries = [];
+let expenseEntries = [];
+let compressedPhotoDataUrl = "";
+let compressedTicketDataUrl = "";
+let unsubMain = null, unsubJournal = null, unsubTickets = null, unsubExpenses = null;
+
+function initUserIdentity() {
+  document.getElementById("userIdentityLabel").textContent = `👤 ${myName} ・ 房間：${roomCode}`;
+  document.getElementById("myNameInput").value = myName;
+  document.getElementById("roomCodeInput").value = roomCode;
+}
+
+function setSyncStatus(state, text) {
+  const pill = document.getElementById("syncStatusBtn");
+  const label = document.getElementById("syncStatusText");
+  pill.className = `sync-pill ${state}`;
+  label.textContent = text;
+}
+
+// 連接 Firebase 即時監聽
+function connectRealtimeSync() {
+  if (unsubMain) unsubMain();
+  if (unsubJournal) unsubJournal();
+  if (unsubTickets) unsubTickets();
+  if (unsubExpenses) unsubExpenses();
+
+  setSyncStatus("", "連線中...");
+  const roomRef = doc(db, "rooms", roomCode);
+
+  // 1. 監聽行程與打勾狀態
+  unsubMain = onSnapshot(roomRef, (snap) => {
+    setSyncStatus("online", "雙人已同步");
+    if (snap.exists()) {
+      const data = snap.data();
+      if (data.itinerary && Array.isArray(data.itinerary)) {
+        itineraryData = data.itinerary;
+      }
+      doneMap = data.doneMap || {};
+      checklistMap = data.checklistMap || {};
+    } else {
+      // 首次建立房間時初始化預設行程
+      setDoc(roomRef, { itinerary: DEFAULT_ITINERARY, doneMap: {}, checklistMap: {} }, { merge: true }).catch(()=>{});
+    }
+    renderItinerary();
+    renderChecklist();
+    updateNextStopBanner();
+  }, (err) => {
+    console.error(err);
+    setSyncStatus("error", "離線/權限異常");
+  });
+
+  // 2. 監聽遊記相簿
+  const jQuery = query(collection(db, "rooms", roomCode, "journal"), orderBy("createdAt", "desc"));
+  unsubJournal = onSnapshot(jQuery, (snap) => {
+    journalEntries = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderJournal();
+    renderItinerary(); // 更新行程上的縮圖
+  });
+
+  // 3. 監聽隨身票夾
+  const tQuery = query(collection(db, "rooms", roomCode, "tickets"), orderBy("createdAt", "desc"));
+  unsubTickets = onSnapshot(tQuery, (snap) => {
+    ticketEntries = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderTickets();
+  });
+
+  // 4. 監聽記帳
+  const eQuery = query(collection(db, "rooms", roomCode, "expenses"), orderBy("createdAt", "desc"));
+  unsubExpenses = onSnapshot(eQuery, (snap) => {
+    expenseEntries = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderExpenses();
+  });
+}
+
+async function syncMainState() {
+  try {
+    await setDoc(doc(db, "rooms", roomCode), {
+      itinerary: itineraryData,
+      doneMap: doneMap,
+      checklistMap: checklistMap,
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+  } catch (e) {
+    showToast("⚠️ 同步失敗，請確認網路或 Firestore 規則");
+  }
+}
+
+// 渲染每日行程
+function renderItinerary() {
+  const scroller = document.getElementById("dayScroller");
+  const container = document.getElementById("daysContainer");
+  const currentActivePill = scroller.querySelector(".day-pill.active")?.dataset.target || "day-D1";
+
+  scroller.innerHTML = "";
+  container.innerHTML = "";
+
+  itineraryData.forEach((item, dayIdx) => {
+    const pill = document.createElement("button");
+    pill.className = `day-pill ${item.region} ${currentActivePill === `day-${item.day}` ? "active" : ""}`;
+    pill.dataset.target = `day-${item.day}`;
+    pill.innerHTML = `<span>${item.day}</span><span class="sub">${item.date.split(" ")[0]}</span>`;
+    pill.onclick = () => {
+      document.querySelectorAll(".day-pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      const el = document.getElementById(`day-${item.day}`);
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 150;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    };
+    scroller.appendChild(pill);
+
+    const card = document.createElement("article");
+    card.className = `card searchable-card ${item.region === "es" ? "es-card" : ""}`;
+    card.id = `day-${item.day}`;
+
+    const eventsHtml = (item.events || []).map((ev, stepIdx) => {
+      const isDone = !!doneMap[ev.id];
+      const mapQuery = ev.map || ev.text;
+      const stepPhotos = journalEntries.filter(j => j.stepId === ev.id);
+
+      let subsHtml = "";
+      if (ev.subs && ev.subs.length) {
+        subsHtml = `<ul class="tl-sub">${ev.subs.map(s => `<li>${s}</li>`).join("")}</ul>`;
+      }
+
+      let photosHtml = "";
+      if (stepPhotos.length) {
+        photosHtml = `<div class="step-photos">${stepPhotos.map(p => `<img src="${p.image}" class="step-photo-thumb" onclick="switchTab('journal', document.querySelector('[data-tab=journal]'))">`).join("")}</div>`;
+      }
+
+      return `
+        <div class="tl-item ${isDone ? "done" : ""}">
+          <div class="tl-top">
+            <span class="tl-time">${ev.time}</span>
+            <button class="act-chip done-btn ${isDone ? "checked" : ""}" onclick="toggleStepDone('${ev.id}')">
+              ${isDone ? "✅ 已完成" : "⬜ 標記完成"}
+            </button>
+          </div>
+          <div class="tl-main">${ev.text}</div>
+          ${subsHtml}
+          ${photosHtml}
+          <div class="tl-actions">
+            <button class="act-chip nav" onclick="openGoogleMaps('${escapeQuotes(mapQuery)}')">📍 導航</button>
+            <button class="act-chip cam" onclick="openPhotoModal('${item.day}｜${item.date}', '${ev.id}', '${escapeQuotes(ev.text)}')">📷 拍照打卡</button>
+            <button class="act-chip" onclick="openEditStepModal(${dayIdx}, ${stepIdx})">✏️ 修改</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    let guidesHtml = "";
+    if (item.guides && item.guides.length) {
+      guidesHtml = item.guides.map(g => `
+        <details class="guide-box">
+          <summary>${g.title}</summary>
+          <div class="guide-content">
+            <ul>${g.items.map(i => `<li>${i}</li>`).join("")}</ul>
+          </div>
+        </details>
+      `).join("");
+    }
+
+    card.innerHTML = `
+      <div>
+        <span class="badge ${item.region}">${item.badge} ・ ${item.date}</span>
+        <h2 class="day-title">${item.day}｜${item.title}</h2>
+        <p class="day-subtitle">${item.subtitle}</p>
+      </div>
+      <div class="timeline">${eventsHtml}</div>
+      <button class="add-step-btn" onclick="openAddStepModal(${dayIdx})">＋ 新增 ${item.day} 的臨時行程</button>
+      ${guidesHtml}
+    `;
+    container.appendChild(card);
+  });
+}
+
+// 自動偵測「下一站」並更新頂部藍色導航按鈕
+let currentNextStopMap = "Heathrow Terminal 4, London";
+function updateNextStopBanner() {
+  const btn = document.getElementById("nextStopBtn");
+  for (const day of itineraryData) {
+    for (const ev of (day.events || [])) {
+      if (!doneMap[ev.id]) {
+        currentNextStopMap = ev.map || ev.text;
+        btn.innerHTML = `<span class="dest">🚀 下一站 (${day.day})：${ev.text}</span><span>導航 ➔</span>`;
+        return;
+      }
+    }
+  }
+  btn.innerHTML = `<span class="dest">🎉 16天行程已全部完成！</span><span>查看遊記</span>`;
+}
+
+window.navigateNextStop = () => {
+  openGoogleMaps(currentNextStopMap);
+};
+
+// 喚醒手機 Google Maps App
+window.openGoogleMaps = (destination) => {
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+  window.open(url, "_blank");
+};
+
+window.toggleStepDone = async (stepId) => {
+  doneMap[stepId] = !doneMap[stepId];
+  renderItinerary();
+  updateNextStopBanner();
+  await syncMainState();
+};
+
+// 新增 / 編輯行程節點
+window.openAddStepModal = (dayIdx) => {
+  document.getElementById("stepModalTitle").textContent = `＋ 新增 ${itineraryData[dayIdx].day} 行程`;
+  document.getElementById("editDayIdx").value = dayIdx;
+  document.getElementById("editStepIdx").value = -1;
+  document.getElementById("stepTimeInput").value = "";
+  document.getElementById("stepTextInput").value = "";
+  document.getElementById("stepMapInput").value = "";
+  document.getElementById("deleteStepBtn").style.display = "none";
+  document.getElementById("stepModal").classList.add("open");
+};
+
+window.openEditStepModal = (dayIdx, stepIdx) => {
+  const ev = itineraryData[dayIdx].events[stepIdx];
+  document.getElementById("stepModalTitle").textContent = `✏️ 修改 ${itineraryData[dayIdx].day} 行程`;
+  document.getElementById("editDayIdx").value = dayIdx;
+  document.getElementById("editStepIdx").value = stepIdx;
+  document.getElementById("stepTimeInput").value = ev.time || "";
+  document.getElementById("stepTextInput").value = ev.text || "";
+  document.getElementById("stepMapInput").value = ev.map || "";
+  document.getElementById("deleteStepBtn").style.display = "inline-block";
+  document.getElementById("stepModal").classList.add("open");
+};
+
+window.saveStep = async () => {
+  const dayIdx = parseInt(document.getElementById("editDayIdx").value, 10);
+  const stepIdx = parseInt(document.getElementById("editStepIdx").value, 10);
+  const time = document.getElementById("stepTimeInput").value.trim() || "彈性";
+  const text = document.getElementById("stepTextInput").value.trim();
+  const map = document.getElementById("stepMapInput").value.trim() || text;
+
+  if (!text) {
+    showToast("請輸入行程內容");
+    return;
+  }
+
+  if (stepIdx === -1) {
+    itineraryData[dayIdx].events.push({
+      id: `custom-${Date.now()}`,
+      time, text, map
+    });
+  } else {
+    itineraryData[dayIdx].events[stepIdx].time = time;
+    itineraryData[dayIdx].events[stepIdx].text = text;
+    itineraryData[dayIdx].events[stepIdx].map = map;
+  }
+
+  closeModal("stepModal");
+  renderItinerary();
+  updateNextStopBanner();
+  showToast("✅ 行程已更新並同步給旅伴");
+  await syncMainState();
+};
+
+window.deleteStep = async () => {
+  const dayIdx = parseInt(document.getElementById("editDayIdx").value, 10);
+  const stepIdx = parseInt(document.getElementById("editStepIdx").value, 10);
+  if (stepIdx >= 0) {
+    itineraryData[dayIdx].events.splice(stepIdx, 1);
+    closeModal("stepModal");
+    renderItinerary();
+    updateNextStopBanner();
+    showToast("🗑️ 已刪除此行程並同步");
+    await syncMainState();
+  }
+};
+
+// 臨時改道功能
+window.openDetourModal = () => {
+  document.getElementById("customDetourInput").value = "";
+  document.getElementById("detourModal").classList.add("open");
+};
+
+window.goCustomDetour = () => {
+  const val = document.getElementById("customDetourInput").value.trim();
+  if (!val) {
+    showToast("請輸入想去的地方");
+    return;
+  }
+  closeModal("detourModal");
+  openGoogleMaps(val);
+};
+
+window.addDetourToToday = async () => {
+  const val = document.getElementById("customDetourInput").value.trim();
+  if (!val) {
+    showToast("請先輸入地點名稱");
+    return;
+  }
+  // 尋找第一個還有未完成項目的天數加入
+  let targetDayIdx = 0;
+  for (let i = 0; i < itineraryData.length; i++) {
+    if ((itineraryData[i].events || []).some(e => !doneMap[e.id])) {
+      targetDayIdx = i;
+      break;
+    }
+  }
+  const nowStr = new Date().toTimeString().slice(0, 5);
+  itineraryData[targetDayIdx].events.push({
+    id: `detour-${Date.now()}`,
+    time: nowStr,
+    text: `【臨時新增】${val}`,
+    map: val
+  });
+  closeModal("detourModal");
+  renderItinerary();
+  updateNextStopBanner();
+  showToast(`已加入 ${itineraryData[targetDayIdx].day} 並同步！`);
+  await syncMainState();
+  openGoogleMaps(val);
+};
+
+// 圖片前端自動壓縮（確保可順暢存入免費 Firestore 並秒速同步）
+function compressImageFile(file, maxWidth = 1000, quality = 0.72) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width;
+        let h = img.height;
+        if (w > maxWidth) {
+          h = Math.round((h * maxWidth) / w);
+          w = maxWidth;
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+// 拍照打卡 & 自動遊記
+window.openPhotoModal = (dayLabel, stepId, locName) => {
+  compressedPhotoDataUrl = "";
+  document.getElementById("photoDayLabel").value = dayLabel || "旅途隨拍";
+  document.getElementById("photoStepId").value = stepId || "";
+  document.getElementById("photoLocInput").value = locName || "";
+  document.getElementById("photoFileInput").value = "";
+  document.getElementById("photoPreview").style.display = "none";
+  document.getElementById("photoNoteInput").value = "";
+  document.getElementById("photoModal").classList.add("open");
+};
+
+window.previewCompressedPhoto = async (input) => {
+  if (input.files && input.files[0]) {
+    showToast("正在壓縮處理照片...");
+    compressedPhotoDataUrl = await compressImageFile(input.files[0], 960, 0.72);
+    const prev = document.getElementById("photoPreview");
+    prev.src = compressedPhotoDataUrl;
+    prev.style.display = "block";
+  }
+};
+
+window.savePhotoEntry = async () => {
+  const loc = document.getElementById("photoLocInput").value.trim();
+  const note = document.getElementById("photoNoteInput").value.trim();
+  const dayLabel = document.getElementById("photoDayLabel").value;
+  const stepId = document.getElementById("photoStepId").value;
+
+  if (!compressedPhotoDataUrl && !note) {
+    showToast("請拍張照片或寫點心得再發布喔！");
+    return;
+  }
+
+  const btn = document.getElementById("savePhotoBtn");
+  btn.disabled = true;
+  btn.textContent = "同步上傳中...";
+
+  try {
+    const now = new Date();
+    const timeStr = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.toTimeString().slice(0,5)}`;
+    await addDoc(collection(db, "rooms", roomCode, "journal"), {
+      author: myName,
+      dayLabel,
+      stepId,
+      location: loc || "英西旅途足跡",
+      note,
+      image: compressedPhotoDataUrl,
+      timeStr,
+      createdAt: serverTimestamp()
+    });
+    closeModal("photoModal");
+    showToast("✨ 已同步至雙人自動遊記！");
+  } catch (e) {
+    console.error(e);
+    showToast("⚠️ 上傳失敗，請檢查網路或資料庫規則");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "✨ 發布並同步遊記";
+  }
+};
+
+function renderJournal() {
+  const container = document.getElementById("journalContainer");
+  if (!journalEntries.length) {
+    container.innerHTML = `
+      <div class="card" style="text-align:center; padding:32px 16px; color:var(--text-light);">
+        <div style="font-size:2.2rem; margin-bottom:8px;">📸</div>
+        <div style="font-weight:700; color:var(--text); margin-bottom:4px;">目前還沒有拍照打卡紀錄</div>
+        <div style="font-size:0.86rem;">在「每日行程」的景點按下「📷 拍照打卡」，這裡就會自動生成你們兩人的圖文旅遊日記！</div>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = journalEntries.map(entry => `
+    <article class="diary-entry">
+      ${entry.image ? `<img src="${entry.image}" class="diary-img" alt="${entry.location}">` : ""}
+      <div class="diary-body">
+        <div class="diary-meta">
+          <span>👤 ${entry.author} ・ ${entry.dayLabel || ""}</span>
+          <span>${entry.timeStr || ""}</span>
+        </div>
+        <div class="diary-loc">📍 ${entry.location}</div>
+        ${entry.note ? `<p class="diary-note">${entry.note}</p>` : ""}
+        <div style="text-align:right; margin-top:8px;">
+          <button class="btn-danger" style="padding:3px 8px; font-size:0.74rem;" onclick="deleteJournalEntry('${entry.id}')">刪除</button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+window.deleteJournalEntry = async (id) => {
+  if (confirm("確定要刪除這篇遊記紀錄嗎？（旅伴手機也會同步刪除）")) {
+    await deleteDoc(doc(db, "rooms", roomCode, "journal", id));
+    showToast("已刪除紀錄");
+  }
+};
+
+// 一鍵匯出精美獨立遊記 HTML 檔案
+window.exportTravelogueHTML = () => {
+  if (!journalEntries.length) {
+    showToast("目前還沒有遊記內容可匯出喔！");
+    return;
+  }
+  const ordered = [...journalEntries].reverse();
+  const cardsHtml = ordered.map(e => `
+    <div style="background:#fff; border-radius:16px; overflow:hidden; margin-bottom:24px; box-shadow:0 4px 15px rgba(0,0,0,0.06); border:1px solid #e2e8f0;">
+      ${e.image ? `<img src="${e.image}" style="width:100%; max-height:520px; object-fit:cover; display:block;">` : ""}
+      <div style="padding:20px;">
+        <div style="font-size:13px; color:#64748b; margin-bottom:6px;">${e.dayLabel} ・ ${e.timeStr} ・ 記錄者：${e.author}</div>
+        <h2 style="margin:0 0 10px; font-size:20px; color:#0f172a;">📍 ${e.location}</h2>
+        <p style="margin:0; font-size:16px; line-height:1.7; color:#334155; white-space:pre-wrap;">${e.note || ""}</p>
+      </div>
+    </div>
+  `).join("");
+
+  const exportDoc = `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>2027 英國・西班牙 16日旅遊回憶錄</title></head><body style="font-family:-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei',sans-serif; background:#f8fafc; margin:0; padding:24px 16px;"><div style="max-width:720px; margin:0 auto;"><header style="text-align:center; margin-bottom:32px;"><h1 style="margin:0 0 8px; color:#0f172a;">🇬🇧🇪🇸 2027 英國・西班牙 16日旅行遊記</h1><p style="margin:0; color:#64748b;">2027/04/16 – 05/01 ・ 雙人專屬旅遊回憶錄</p></header>${cardsHtml}</div></body></html>`;
+
+  const blob = new Blob([exportDoc], { type: "text/html;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "2027英西16日遊記回憶錄.html";
+  a.click();
+  showToast("💾 遊記網頁已下載！");
+};
+
+// 電子票夾
+window.openTicketModal = () => {
+  compressedTicketDataUrl = "";
+  document.getElementById("ticketTitleInput").value = "";
+  document.getElementById("ticketFileInput").value = "";
+  document.getElementById("ticketPreview").style.display = "none";
+  document.getElementById("ticketModal").classList.add("open");
+};
+
+window.previewTicketPhoto = async (input) => {
+  if (input.files && input.files[0]) {
+    compressedTicketDataUrl = await compressImageFile(input.files[0], 1100, 0.82);
+    const prev = document.getElementById("ticketPreview");
+    prev.src = compressedTicketDataUrl;
+    prev.style.display = "block";
+  }
+};
+
+window.saveTicketEntry = async () => {
+  const title = document.getElementById("ticketTitleInput").value.trim();
+  if (!title || !compressedTicketDataUrl) {
+    showToast("請輸入票券名稱並選擇圖片");
+    return;
+  }
+  const btn = document.getElementById("saveTicketBtn");
+  btn.disabled = true;
+  try {
+    await addDoc(collection(db, "rooms", roomCode, "tickets"), {
+      title,
+      image: compressedTicketDataUrl,
+      uploader: myName,
+      createdAt: serverTimestamp()
+    });
+    closeModal("ticketModal");
+    showToast("🎫 憑證已存入雙人票夾！");
+  } finally {
+    btn.disabled = false;
+  }
+};
+
+function renderTickets() {
+  const grid = document.getElementById("ticketGrid");
+  if (!ticketEntries.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1; font-size:0.84rem; color:var(--text-light); padding:8px 0;">尚未上傳 QR Code 截圖（可上傳聖家堂、奎爾公園、Trainline 車票、Uber Boat 船票截圖）</div>`;
+    return;
+  }
+  grid.innerHTML = ticketEntries.map(t => `
+    <div class="ticket-card" onclick="viewTicket('${t.id}')">
+      <img src="${t.image}" alt="${t.title}">
+      <div class="ticket-title">${t.title}</div>
+    </div>
+  `).join("");
+}
+
+window.viewTicket = (id) => {
+  const t = ticketEntries.find(x => x.id === id);
+  if (!t) return;
+  document.getElementById("viewerTitle").textContent = t.title;
+  document.getElementById("viewerImg").src = t.image;
+  document.getElementById("viewerDeleteBtn").onclick = async () => {
+    if (confirm("確定刪除此憑證？")) {
+      await deleteDoc(doc(db, "rooms", roomCode, "tickets", id));
+      closeModal("ticketViewerModal");
+      showToast("已刪除憑證");
+    }
+  };
+  document.getElementById("ticketViewerModal").classList.add("open");
+};
+
+// 雙人記帳
+window.addExpense = async () => {
+  const currency = document.getElementById("expCurrency").value;
+  const amount = parseFloat(document.getElementById("expAmount").value);
+  const title = document.getElementById("expTitle").value.trim();
+  if (!amount || amount <= 0 || !title) {
+    showToast("請輸入有效金額與項目");
+    return;
+  }
+  document.getElementById("expAmount").value = "";
+  document.getElementById("expTitle").value = "";
+  await addDoc(collection(db, "rooms", roomCode, "expenses"), {
+    currency, amount, title, payer: myName, createdAt: serverTimestamp()
+  });
+  showToast("💰 已記帳並同步");
+};
+
+function renderExpenses() {
+  let gbp = 0, eur = 0;
+  expenseEntries.forEach(e => {
+    if (e.currency === "GBP") gbp += e.amount;
+    if (e.currency === "EUR") eur += e.amount;
+  });
+  const approxTwd = Math.round(gbp * 41.5 + eur * 35);
+  document.getElementById("expSummary").textContent = `累計：£${gbp.toFixed(1)} ・ €${eur.toFixed(1)} (約 NT$${approxTwd.toLocaleString()})`;
+
+  const list = document.getElementById("expenseList");
+  list.innerHTML = expenseEntries.map(e => `
+    <div class="info-row">
+      <div>
+        <div style="font-weight:600;">${e.title}</div>
+        <div style="font-size:0.75rem; color:var(--text-light);">付款人：${e.payer}</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-weight:700; color:${e.currency==='GBP'?'var(--uk)':'var(--es)'};">
+          ${e.currency === 'GBP' ? '£' : '€'}${e.amount.toFixed(2)}
+        </span>
+        <button class="copy-btn" style="padding:2px 6px; font-size:0.72rem;" onclick="deleteExpense('${e.id}')">✕</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+window.deleteExpense = async (id) => {
+  await deleteDoc(doc(db, "rooms", roomCode, "expenses", id));
+};
+
+// 行前清單
+function renderChecklist() {
+  const container = document.getElementById("checklistContainer");
+  container.innerHTML = "";
+  CHECKLIST_ITEMS.forEach(item => {
+    const isChecked = !!checklistMap[item.id];
+    const label = document.createElement("label");
+    label.className = `check-item ${isChecked ? "done" : ""}`;
+    label.innerHTML = `
+      <input type="checkbox" ${isChecked ? "checked" : ""}>
+      <div class="check-text">
+        <span class="badge transit" style="margin-right:6px;">${item.date}</span>
+        <span>${item.text}</span>
+      </div>
+    `;
+    const cb = label.querySelector("input");
+    cb.onchange = async () => {
+      checklistMap[item.id] = cb.checked;
+      label.classList.toggle("done", cb.checked);
+      await syncMainState();
+    };
+    container.appendChild(label);
+  });
+}
+
+// 設定 Modal
+window.openSettingsModal = () => {
+  document.getElementById("settingsModal").classList.add("open");
+};
+
+window.saveUserSettings = () => {
+  const n = document.getElementById("myNameInput").value.trim() || "旅伴";
+  const r = document.getElementById("roomCodeInput").value.trim().toUpperCase() || "UKES2027";
+  myName = n;
+  roomCode = r;
+  localStorage.setItem("trip2027_myName", myName);
+  localStorage.setItem("trip2027_roomCode", roomCode);
+  initUserIdentity();
+  closeModal("settingsModal");
+  connectRealtimeSync();
+  showToast(`已切換至房間 ${roomCode}`);
+};
+
+window.resetItineraryToDefault = async () => {
+  if (confirm("確定要將每日行程重置回初始版本嗎？（照片遊記與票券會保留）")) {
+    itineraryData = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
+    doneMap = {};
+    closeModal("settingsModal");
+    renderItinerary();
+    updateNextStopBanner();
+    await syncMainState();
+    showToast("🔄 已重置為預設行程");
+  }
+};
+
+// 共用 UI 控制
+window.switchTab = (tabName, btn) => {
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  document.querySelectorAll(".view-section").forEach(s => s.classList.remove("active"));
+  document.getElementById(`tab-${tabName}`).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+window.closeModal = (id) => document.getElementById(id).classList.remove("open");
+window.closeModalOnBg = (e, id) => { if (e.target.id === id) closeModal(id); };
+
+window.copyText = (text) => {
+  navigator.clipboard?.writeText(text).then(() => showToast(`已複製：${text}`));
+};
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+function escapeQuotes(str) {
+  return String(str).replace(/'/g, "\\'").replace(/"/g, "&quot;");
+}
+
+// 搜尋功能
+window.toggleSearchBox = () => {
+  const box = document.getElementById("searchBox");
+  box.classList.toggle("open");
+  if (box.classList.contains("open")) {
+    document.getElementById("searchInput").focus();
+  } else {
+    document.getElementById("searchInput").value = "";
+    filterCards("");
+  }
+};
+
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  document.getElementById("clearSearch").style.display = q ? "flex" : "none";
+  filterCards(q);
+});
+
+document.getElementById("clearSearch").addEventListener("click", () => {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("clearSearch").style.display = "none";
+  filterCards("");
+});
+
+function filterCards(q) {
+  if (!q) {
+    document.getElementById("dayScrollerWrap").style.display = "block";
+    document.querySelectorAll(".card").forEach(c => c.style.display = "block");
+    const activeTab = document.querySelector(".nav-btn.active")?.dataset.tab || "itinerary";
+    document.querySelectorAll(".view-section").forEach(s => s.classList.remove("active"));
+    document.getElementById(`tab-${activeTab}`).classList.add("active");
+    return;
+  }
+  document.querySelectorAll(".view-section").forEach(s => s.classList.add("active"));
+  document.getElementById("dayScrollerWrap").style.display = "none";
+  document.querySelectorAll(".card").forEach(c => {
+    const match = c.innerText.toLowerCase().includes(q);
+    c.style.display = match ? "block" : "none";
+    if (match) c.querySelectorAll("details").forEach(d => d.open = true);
+  });
+}
+
+// 啟動初始化
+initUserIdentity();
+renderItinerary();
+renderChecklist();
+updateNextStopBanner();
+connectRealtimeSync();
+</script>
+</body>
+</html>
